@@ -18,7 +18,7 @@ function NavList() {
       >
         <a
           href="#"
-          className="flex items-center hover:text-blue-500 transition-colors"
+          className="flex items-center hover:text-yellow-500 transition-colors"
         >
           Home
         </a>
@@ -30,8 +30,8 @@ function NavList() {
         className="p-1 font-medium text-white"
       >
         <a
-          href="#"
-          className="flex items-center hover:text-blue-500 transition-colors"
+          href="#tech"
+          className="flex items-center hover:text-yellow-500 transition-colors"
         >
           Tech
         </a>
@@ -44,7 +44,7 @@ function NavList() {
       >
         <a
           href="#"
-          className="flex items-center hover:text-blue-500 transition-colors"
+          className="flex items-center hover:text-yellow-500 transition-colors"
         >
           Projects
         </a>
@@ -57,7 +57,7 @@ function NavList() {
       >
         <a
           href="#"
-          className="flex items-center hover:text-blue-500 transition-colors"
+          className="flex items-center hover:text-yellow-500 transition-colors"
         >
           Blogs
         </a>

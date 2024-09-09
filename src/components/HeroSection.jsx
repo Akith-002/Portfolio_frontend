@@ -23,7 +23,7 @@ const HeroSection = () => {
             Hi, I'm Akith Chandinu 👋
           </p>
         </div>
-        <p className="text-6xl w-3/4 animate-slidein mb-2 opacity-0 [--slidein-delay:500ms] text-center">
+        <p className="text-6xl w-3/4 animate-slidein mb-6 opacity-0 [--slidein-delay:500ms] text-center">
           A Passionate Developer & Undergraduate from the University of Moratuwa
         </p>
         <Button className="flex items-center gap-2 bg-white text-black rounded-full animate-slidein opacity-0 [--slidein-delay:700ms] hover:shadow-[0_0_2px_2px] hover:shadow-yellow-400">
