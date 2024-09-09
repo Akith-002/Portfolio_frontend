@@ -6,13 +6,13 @@ import myimg from "../assets/images/myImg.jpg";
 const HeroSection = () => {
   return (
     <div
-      className="w-full h-screen flex flex-col justify-center items-center"
+      className="w-full h-5/6 flex flex-col justify-center items-center"
       style={{
         background:
           "linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%)",
       }}
     >
-      <div className="flex flex-col h-2/3 mb-36 justify-evenly items-center text-white">
+      <div className="flex flex-col h-2/3 my-24 justify-evenly items-center text-white">
         <div className="flex flex-col gap-4 items-center">
           <img
             src={myimg}
@@ -26,7 +26,7 @@ const HeroSection = () => {
         <p className="text-6xl w-3/4 animate-slidein mb-2 opacity-0 [--slidein-delay:500ms] text-center">
           A Passionate Developer & Undergraduate from the University of Moratuwa
         </p>
-        <Button className="flex items-center gap-2 bg-white text-black rounded-full animate-slidein opacity-0 [--slidein-delay:700ms]">
+        <Button className="flex items-center gap-2 bg-white text-black rounded-full animate-slidein opacity-0 [--slidein-delay:700ms] hover:shadow-[0_0_2px_2px] hover:shadow-yellow-400">
           Explore
           <svg
             xmlns="http://www.w3.org/2000/svg"

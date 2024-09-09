@@ -4,6 +4,10 @@ module.exports = withMT({
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      spacing: {
+        100: "30rem",
+        128: "32rem",
+      },
       keyframes: {
         slidein: {
           from: {
@@ -15,9 +19,21 @@ module.exports = withMT({
             transform: "translateY(0)",
           },
         },
+        tilt: {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "25%": { transform: "rotate(5deg)" },
+          "50%": { transform: "rotate(-5deg)" },
+          "75%": { transform: "rotate(5deg)" },
+        },
+        scroll: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
       },
       animation: {
         slidein: "slidein 1s ease var(--slidein-delay, 0) forwards",
+        scroll: "scroll 20s linear infinite",
+        tilt: "tilt 0.5s infinite ease-in-out",
       },
     },
   },

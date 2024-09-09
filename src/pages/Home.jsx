@@ -3,6 +3,7 @@ import Projects from "../components/Projects";
 import Blogs from "../components/Blogs";
 import NavbarDesktop from "../components/NavbarDesktop";
 import HeroSection from "../components/HeroSection";
+import TechSection from "../components/TechSection";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
     >
       <NavbarDesktop />
       <HeroSection />
+      <TechSection />
       <Projects />
       <Blogs />
     </div>
