@@ -20,7 +20,7 @@ const HeroSection = () => {
             className="w-60 h-60 rounded-full border border-2 border-yellow-600 animate-slidein opacity-0 [--slidein-delay:300ms] shadow-[0_0_10px_3px] shadow-yellow-400"
           />
           <p className="text-xl animate-slidein opacity-0 [--slidein-delay:300ms]">
-            Hi, I'm Akith Chandinu 👋
+            Hi, I'm Akith Chandinu👋
           </p>
         </div>
         <p className="text-6xl w-3/4 animate-slidein mb-6 opacity-0 [--slidein-delay:500ms] text-center">

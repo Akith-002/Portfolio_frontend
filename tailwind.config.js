@@ -25,10 +25,6 @@ module.exports = withMT({
           "50%": { transform: "rotate(-5deg)" },
           "75%": { transform: "rotate(5deg)" },
         },
-        scroll: {
-          "0%": { transform: "translateX(100%)" },
-          "100%": { transform: "translateX(-100%)" },
-        },
       },
       animation: {
         slidein: "slidein 1s ease var(--slidein-delay, 0) forwards",

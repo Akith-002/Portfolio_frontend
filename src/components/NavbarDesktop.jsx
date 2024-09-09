@@ -43,7 +43,7 @@ function NavList() {
         className="p-1 font-medium text-white"
       >
         <a
-          href="#"
+          href="#projects"
           className="flex items-center hover:text-yellow-500 transition-colors"
         >
           Projects
