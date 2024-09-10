@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import projImg2 from "../assets/images/projects_img2.jpg";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -15,6 +22,15 @@ const Projects = () => {
   const [deleteId, setDeleteId] = useState("");
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isVisible, setIsVisible] = useState(false); // State to track visibility
+  // const [open, setOpen] = React.useState(false);
+
+  // const handleOpen = () => setOpen(!open);
+
+  const [openProject, setOpenProject] = useState(null); // Track which project’s modal is open
+
+  const handleOpen = (project) => setOpenProject(project);
+
+  const handleClose = () => setOpenProject(null);
 
   // Fetch projects from the backend
   useEffect(() => {
@@ -140,7 +156,7 @@ const Projects = () => {
 
       <div className="flex justify-around w-4/5">
         <div
-          className={`w-2/5 h-full rounded-lg overflow-hidden shadow-[0px_0px_20px_1px] shadow-gray-700 transition-transform duration-[2000ms] ${
+          className={`w-2/5 h-full rounded-lg overflow-hidden shadow-[0px_0px_20px_1px] shadow-gray-700 transition-transform duration-[1500ms] ${
             isVisible
               ? "transform translate-x-0 opacity-100"
               : "transform -translate-x-128 opacity-0"
@@ -156,10 +172,51 @@ const Projects = () => {
                 className="flex justify-between my-6 pb-2 px-6 border-b border-gray-700"
               >
                 <h3 className="text-2xl">{project.name}</h3>
-                <ArrowUpRightIcon className="w-6 h-6 hover:text-yellow-500" />
+                <ArrowUpRightIcon
+                  className="w-6 h-6 hover:text-yellow-500"
+                  onClick={() => handleOpen(project)}
+                  style={{
+                    strokeWidth: 2.5,
+                  }}
+                />
                 {/* <p>{project.description}</p>
                 <p>{project.linkedIn}</p>
                 <p>{project.github}</p> */}
+                <Dialog
+                  size="lg"
+                  open={!!openProject && openProject._id === project._id}
+                  handler={handleClose}
+                  className="px-10 py-6"
+                >
+                  <DialogHeader className="font-bold text-3xl">
+                    {openProject?.name}
+                  </DialogHeader>
+                  <DialogBody>
+                    <h1 className="mb-4"> {openProject?.description}</h1>
+                    <div className="rounded-xl bg-blue-gray-300 px-5 py-3 text-white">
+                      <p>
+                        Github link :{" "}
+                        <span className="underline">{openProject?.github}</span>
+                      </p>
+                      <p>
+                        Linkedin link :{" "}
+                        <span className="underline">
+                          {openProject?.linkedIn}
+                        </span>
+                      </p>
+                    </div>
+                  </DialogBody>
+                  <DialogFooter>
+                    <Button
+                      variant="text"
+                      color="red"
+                      onClick={handleClose}
+                      className="mr-1"
+                    >
+                      <span>Close</span>
+                    </Button>
+                  </DialogFooter>
+                </Dialog>
               </li>
             ))}
           </ul>
