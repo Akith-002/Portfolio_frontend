@@ -269,69 +269,72 @@ const Projects = () => {
 
           {/* Form to update project */}
           {/* <h2>Update Project</h2>
-      <form onSubmit={handleUpdateProject}>
-        <div>
-          <label>Select Project:</label>
-          <select
-            value={updateProject.id}
-            onChange={(e) =>
-              setUpdateProject({ ...updateProject, id: e.target.value })
-            }
-            required
-          >
-            <option value="">Select Project</option>
-            {projects.map((project) => (
-              <option key={project._id} value={project._id}>
-                {project.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Project Name:</label>
-          <input
-            type="text"
-            value={updateProject.name}
-            onChange={(e) =>
-              setUpdateProject({ ...updateProject, name: e.target.value })
-            }
-            required
-          />
-        </div>
-        <div>
-          <label>Project Description:</label>
-          <textarea
-            value={updateProject.description}
-            onChange={(e) =>
-              setUpdateProject({
-                ...updateProject,
-                description: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div>
-          <label>LinkedIn:</label>
-          <input
-            type="text"
-            value={updateProject.linkedIn}
-            onChange={(e) =>
-              setUpdateProject({ ...updateProject, linkedIn: e.target.value })
-            }
-          />
-        </div>
-        <div>
-          <label>GitHub:</label>
-          <input
-            type="text"
-            value={updateProject.github}
-            onChange={(e) =>
-              setUpdateProject({ ...updateProject, github: e.target.value })
-            }
-          />
-        </div>
-        <button type="submit">Update Project</button>
-      </form> */}
+          <form onSubmit={handleUpdateProject}>
+            <div>
+              <label>Select Project:</label>
+              <select
+                value={updateProject.id}
+                onChange={(e) =>
+                  setUpdateProject({ ...updateProject, id: e.target.value })
+                }
+                required
+              >
+                <option value="">Select Project</option>
+                {projects.map((project) => (
+                  <option key={project._id} value={project._id}>
+                    {project.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label>Project Name:</label>
+              <input
+                type="text"
+                value={updateProject.name}
+                onChange={(e) =>
+                  setUpdateProject({ ...updateProject, name: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div>
+              <label>Project Description:</label>
+              <textarea
+                value={updateProject.description}
+                onChange={(e) =>
+                  setUpdateProject({
+                    ...updateProject,
+                    description: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div>
+              <label>LinkedIn:</label>
+              <input
+                type="text"
+                value={updateProject.linkedIn}
+                onChange={(e) =>
+                  setUpdateProject({
+                    ...updateProject,
+                    linkedIn: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div>
+              <label>GitHub:</label>
+              <input
+                type="text"
+                value={updateProject.github}
+                onChange={(e) =>
+                  setUpdateProject({ ...updateProject, github: e.target.value })
+                }
+              />
+            </div>
+            <button type="submit">Update Project</button>
+          </form> */}
 
           {/* Form to delete project */}
           {/* <h2>Delete Project</h2>
