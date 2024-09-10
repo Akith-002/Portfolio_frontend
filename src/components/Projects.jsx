@@ -13,6 +13,8 @@ const Projects = () => {
     github: "",
   });
   const [deleteId, setDeleteId] = useState("");
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [isVisible, setIsVisible] = useState(false); // State to track visibility
 
   // Fetch projects from the backend
   useEffect(() => {
@@ -97,26 +99,64 @@ const Projects = () => {
     }
   };
 
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollPos = window.scrollY; // Get scroll position
+      setScrollPosition(scrollPos);
+
+      // Trigger animation when scrolling past 300px (adjust as needed)
+      if (scrollPos > 800) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [scrollPosition]);
+
   return (
-    <div
-      className="py-12 h-screen text-white flex flex-col gap-12 items-center"
+    <section
+      className="py-16 h-screen text-white flex flex-col gap-16 items-center"
       style={{
         background:
           "linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%)",
       }}
       id="projects"
     >
-      <h2 className="text-4xl">Projects</h2>
+      <h2
+        className={`text-5xl transition-transform duration-[900ms] ${
+          isVisible
+            ? "transform scale-100 opacity-100"
+            : "transform scale-0 opacity-0"
+        }`}
+      >
+        Projects
+      </h2>
+
       <div className="flex justify-around w-4/5">
-        <div className="w-2/5 h-full object-cover rounded-lg overflow-hidden shadow-[0px_0px_20px_1px] shadow-gray-700 ">
-          <img src={projImg2} alt="projects" className="h-96" />
+        <div
+          className={`w-2/5 h-full rounded-lg overflow-hidden shadow-[0px_0px_20px_1px] shadow-gray-700 transition-transform duration-[2000ms] ${
+            isVisible
+              ? "transform translate-x-0 opacity-100"
+              : "transform -translate-x-128 opacity-0"
+          } `}
+        >
+          <img src={projImg2} alt="projects" className="h-full object-cover" />
         </div>
         <div className="w-2/5 px-8">
           <ul className="flex flex-col">
             {projects.map((project) => (
-              <li key={project._id} className="flex justify-between my-6">
-                <h3>{project.name}</h3>
-                <ArrowUpRightIcon className="w-6 h-6" />
+              <li
+                key={project._id}
+                className="flex justify-between my-6 pb-2 px-6 border-b border-gray-700"
+              >
+                <h3 className="text-2xl">{project.name}</h3>
+                <ArrowUpRightIcon className="w-6 h-6 hover:text-yellow-500" />
                 {/* <p>{project.description}</p>
                 <p>{project.linkedIn}</p>
                 <p>{project.github}</p> */}
@@ -126,49 +166,49 @@ const Projects = () => {
 
           {/* Form to create new project */}
           {/* <h2>Create Project</h2>
-      <form onSubmit={handleCreateProject}>
-        <div>
-          <label>Project Name:</label>
-          <input
-            type="text"
-            value={newProject.name}
-            onChange={(e) =>
-              setNewProject({ ...newProject, name: e.target.value })
-            }
-            required
-          />
-        </div>
-        <div>
-          <label>Project Description:</label>
-          <textarea
-            value={newProject.description}
-            onChange={(e) =>
-              setNewProject({ ...newProject, description: e.target.value })
-            }
-          />
-        </div>
-        <div>
-          <label>LinkedIn:</label>
-          <input
-            type="text"
-            value={newProject.linkedIn}
-            onChange={(e) =>
-              setNewProject({ ...newProject, linkedIn: e.target.value })
-            }
-          />
-        </div>
-        <div>
-          <label>GitHub:</label>
-          <input
-            type="text"
-            value={newProject.github}
-            onChange={(e) =>
-              setNewProject({ ...newProject, github: e.target.value })
-            }
-          />
-        </div>
-        <button type="submit">Create Project</button>
-      </form> */}
+          <form onSubmit={handleCreateProject}>
+            <div>
+              <label>Project Name:</label>
+              <input
+                type="text"
+                value={newProject.name}
+                onChange={(e) =>
+                  setNewProject({ ...newProject, name: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div>
+              <label>Project Description:</label>
+              <textarea
+                value={newProject.description}
+                onChange={(e) =>
+                  setNewProject({ ...newProject, description: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label>LinkedIn:</label>
+              <input
+                type="text"
+                value={newProject.linkedIn}
+                onChange={(e) =>
+                  setNewProject({ ...newProject, linkedIn: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label>GitHub:</label>
+              <input
+                type="text"
+                value={newProject.github}
+                onChange={(e) =>
+                  setNewProject({ ...newProject, github: e.target.value })
+                }
+              />
+            </div>
+            <button type="submit">Create Project</button>
+          </form> */}
 
           {/* Form to update project */}
           {/* <h2>Update Project</h2>
@@ -258,7 +298,7 @@ const Projects = () => {
       </form> */}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

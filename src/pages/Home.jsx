@@ -7,7 +7,7 @@ import TechSection from "../components/TechSection";
 
 const Home = () => {
   return (
-    <div
+    <main
       className="size-full"
       style={{
         background:
@@ -20,7 +20,7 @@ const Home = () => {
       <TechSection />
       <Projects />
       <Blogs />
-    </div>
+    </main>
   );
 };
 
