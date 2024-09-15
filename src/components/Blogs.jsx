@@ -11,6 +11,7 @@ const Blogs = () => {
     content: "",
   });
   const [deleteBlogId, setDeleteBlogId] = useState("");
+  const [selectedBlog, setSelectedBlog] = useState(null); // To manage modal content
 
   // Fetch blogs from API
   useEffect(() => {
@@ -110,21 +111,67 @@ const Blogs = () => {
     }
   };
 
+  // Function to open modal
+  const openModal = (blog) => {
+    setSelectedBlog(blog);
+  };
+
+  // Function to close modal
+  const closeModal = () => {
+    setSelectedBlog(null);
+  };
+
   return (
-    <div>
+    <section
+      id="blogs"
+      className="h-5/6 px-20 py-8 flex flex-col items-center "
+    >
       {loading ? <div>Loading Blogs...</div> : null}
-      <h2>Blogs</h2>
-      <ul>
+      <h2 className="text-5xl mb-8">Blogs</h2>
+      <div className="w-full flex flex-wrap justify-between gap-y-12">
         {blogs.map((blog) => (
-          <li key={blog._id}>
-            <h3>{blog.title}</h3>
-            <p>{blog.content}</p>
-          </li>
+          <div
+            key={blog._id}
+            className="w-1/5 bg-white rounded-lg shadow-lg p-6 transition-transform duration-300 transform hover:scale-105"
+          >
+            <div className="mb-4">
+              {/* Placeholder image */}
+              <div className="w-full h-40 bg-gray-200 rounded-md"></div>
+            </div>
+            <h3 className="text-lg font-semibold mb-2">{blog.title}</h3>
+            <p className="text-sm text-gray-700 mb-4">
+              {blog.content.slice(0, 100)}...
+            </p>
+            <button
+              onClick={() => openModal(blog)}
+              className="text-blue-500 hover:underline"
+            >
+              Read More
+            </button>
+          </div>
         ))}
-      </ul>
+      </div>
+
+      {/* Modal */}
+      {selectedBlog && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full relative">
+            <button
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
+              onClick={closeModal}
+            >
+              X
+            </button>
+            <h3 className="text-2xl font-semibold mb-4">
+              {selectedBlog.title}
+            </h3>
+            <p className="text-gray-700 mb-4">{selectedBlog.content}</p>
+          </div>
+        </div>
+      )}
 
       {/* Create Blog Form */}
-      {/* <form onSubmit={createBlog}>
+      <form onSubmit={createBlog}>
         <h2>Create Blog</h2>
         <input
           type="text"
@@ -138,7 +185,7 @@ const Blogs = () => {
           placeholder="Blog Content"
         />
         <button type="submit">Create Blog</button>
-      </form> */}
+      </form>
 
       {/* Update Blog Form */}
       {/* <form onSubmit={handleUpdateBlog}>
@@ -188,7 +235,7 @@ const Blogs = () => {
         </select>
         <button type="submit">Delete Blog</button>
       </form> */}
-    </div>
+    </section>
   );
 };
 

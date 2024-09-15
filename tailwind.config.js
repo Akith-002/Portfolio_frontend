@@ -7,6 +7,9 @@ module.exports = withMT({
       height: {
         "8/9": "88%",
       },
+      width: {
+        "8/9": "88%",
+      },
       spacing: {
         100: "30rem",
         128: "32rem",
