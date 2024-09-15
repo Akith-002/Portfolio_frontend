@@ -121,7 +121,7 @@ const Projects = () => {
       setScrollPosition(scrollPos);
 
       // Trigger animation when scrolling past 300px (adjust as needed)
-      if (scrollPos > 800) {
+      if (scrollPos > 650) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -137,7 +137,7 @@ const Projects = () => {
 
   return (
     <section
-      className="py-16 h-screen text-white flex flex-col gap-16 items-center"
+      className="py-8 h-screen text-white flex flex-col gap-12 items-center"
       style={{
         background:
           "linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%)",
@@ -154,34 +154,35 @@ const Projects = () => {
         Projects
       </h2>
 
-      <div className="flex justify-around w-4/5">
+      <div className="flex gap-8 justify-around w-5/6">
         <div
-          className={`w-2/5 h-full rounded-lg overflow-hidden shadow-[0px_0px_20px_1px] shadow-gray-700 transition-transform duration-[1500ms] ${
+          className={`w-1/2 h-8/9 my-auto mx-4 rounded-lg overflow-hidden shadow-[0px_0px_20px_1px] shadow-gray-700 transition-transform duration-[1500ms] ${
             isVisible
               ? "transform translate-x-0 opacity-100"
-              : "transform -translate-x-128 opacity-0"
+              : "transform -translate-x-40 opacity-0"
           } `}
         >
           <img src={projImg2} alt="projects" className="h-full object-cover" />
         </div>
-        <div className="w-2/5 px-8">
+        <div className="w-1/2 h-full px-8">
           <ul className="flex flex-col">
             {projects.map((project) => (
               <li
                 key={project._id}
-                className="flex justify-between my-6 pb-2 px-6 border-b border-gray-700"
+                className="flex justify-between my-6 pb-2 px-6 border-b border-gray-700 h-14"
               >
-                <h3 className="text-2xl">{project.name}</h3>
-                <ArrowUpRightIcon
-                  className="w-6 h-6 hover:text-yellow-500"
-                  onClick={() => handleOpen(project)}
-                  style={{
-                    strokeWidth: 2.5,
-                  }}
-                />
-                {/* <p>{project.description}</p>
-                <p>{project.linkedIn}</p>
-                <p>{project.github}</p> */}
+                <div className="w-5/6 flex items-center">
+                  <h3 className="text-2xl">{project.name}</h3>
+                </div>
+                <div className="w-1/6 flex justify-center items-center">
+                  <ArrowUpRightIcon
+                    className="w-8 h-8 hover:text-yellow-500"
+                    onClick={() => handleOpen(project)}
+                    style={{
+                      strokeWidth: 2.5,
+                    }}
+                  />
+                </div>
                 <Dialog
                   size="lg"
                   open={!!openProject && openProject._id === project._id}
@@ -192,7 +193,10 @@ const Projects = () => {
                     {openProject?.name}
                   </DialogHeader>
                   <DialogBody>
-                    <h1 className="mb-4"> {openProject?.description}</h1>
+                    <h1 className="mb-8 ml-4 w-8/9">
+                      {" "}
+                      {openProject?.description}
+                    </h1>
                     <div className="rounded-xl bg-blue-gray-300 px-5 py-3 text-white">
                       <p>
                         Github link :{" "}
@@ -269,7 +273,7 @@ const Projects = () => {
 
           {/* Form to update project */}
           {/* <h2>Update Project</h2>
-          <form onSubmit={handleUpdateProject}>
+          <form onSubmit={handleUpdateProject} className="text-black">
             <div>
               <label>Select Project:</label>
               <select

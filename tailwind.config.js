@@ -4,6 +4,9 @@ module.exports = withMT({
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      height: {
+        "8/9": "88%",
+      },
       spacing: {
         100: "30rem",
         128: "32rem",
