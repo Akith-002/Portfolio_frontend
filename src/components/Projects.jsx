@@ -22,9 +22,6 @@ const Projects = () => {
   const [deleteId, setDeleteId] = useState("");
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isVisible, setIsVisible] = useState(false); // State to track visibility
-  // const [open, setOpen] = React.useState(false);
-
-  // const handleOpen = () => setOpen(!open);
 
   const [openProject, setOpenProject] = useState(null); // Track which project’s modal is open
 
@@ -137,7 +134,7 @@ const Projects = () => {
 
   return (
     <section
-      className="py-8 h-screen text-white flex flex-col gap-12 items-center"
+      className="pb-8 pt-12 h-screen text-white flex flex-col gap-12 items-center"
       style={{
         background:
           "linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%)",

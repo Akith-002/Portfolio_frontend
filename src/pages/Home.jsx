@@ -4,6 +4,7 @@ import Blogs from "../components/Blogs";
 import NavbarDesktop from "../components/NavbarDesktop";
 import HeroSection from "../components/HeroSection";
 import TechSection from "../components/TechSection";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -20,6 +21,7 @@ const Home = () => {
       <TechSection />
       <Projects />
       <Blogs />
+      <Footer />
     </main>
   );
 };

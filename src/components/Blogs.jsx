@@ -14,6 +14,8 @@ const Blogs = () => {
   });
   const [deleteBlogId, setDeleteBlogId] = useState("");
   const [selectedBlog, setSelectedBlog] = useState(null); // To manage modal content
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [isVisible, setIsVisible] = useState(false); // State to track visibility
 
   // Fetch blogs from API
   useEffect(() => {
@@ -123,6 +125,26 @@ const Blogs = () => {
     }
   };
 
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollPos = window.scrollY; // Get scroll position
+      setScrollPosition(scrollPos);
+
+      // Trigger animation when scrolling past 300px (adjust as needed)
+      if (scrollPos > 1400) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [scrollPosition]);
+
   // Function to open modal
   const openModal = (blog) => {
     setSelectedBlog(blog);
@@ -136,10 +158,18 @@ const Blogs = () => {
   return (
     <section
       id="blogs"
-      className="h-5/6 px-24 py-8 flex flex-col items-center "
+      className="h-5/6 px-24 pt-12 py-20 flex flex-col items-center bg-gray-600 "
     >
       {loading ? <div>Loading Blogs...</div> : null}
-      <h2 className="text-5xl mb-8">Blogs</h2>
+      <h2
+        className={`text-5xl mb-12 transition-transform duration-[900ms] ${
+          isVisible
+            ? "transform scale-100 opacity-100"
+            : "transform scale-0 opacity-0"
+        }`}
+      >
+        Blogs
+      </h2>
       <div className="w-full grid grid-cols-4 gap-x-12 gap-y-6 px-4">
         {blogs.map((blog) => (
           <div

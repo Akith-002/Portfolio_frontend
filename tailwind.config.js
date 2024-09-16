@@ -4,6 +4,13 @@ module.exports = withMT({
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        "custom-gradient":
+          "linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%)",
+      },
+      backgroundBlendMode: {
+        "multiply-multiply": "multiply,multiply",
+      },
       height: {
         "8/9": "88%",
       },
