@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Projects from "../components/Projects";
 import Blogs from "../components/Blogs";
 import NavbarDesktop from "../components/NavbarDesktop";
 import HeroSection from "../components/HeroSection";
 import TechSection from "../components/TechSection";
 import Footer from "../components/Footer";
+import SpeedDialButton from "../components/SpeedDialButton";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       }}
     >
       <NavbarDesktop />
+      <SpeedDialButton />
       <HeroSection />
       <TechSection />
       <Projects />

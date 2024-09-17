@@ -339,24 +339,24 @@ const Projects = () => {
 
           {/* Form to delete project */}
           {/* <h2>Delete Project</h2>
-      <form onSubmit={handleDeleteProject}>
-        <div>
-          <label>Select Project:</label>
-          <select
-            value={deleteId}
-            onChange={(e) => setDeleteId(e.target.value)}
-            required
-          >
-            <option value="">Select Project</option>
-            {projects.map((project) => (
-              <option key={project._id} value={project._id}>
-                {project.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button type="submit">Delete Project</button>
-      </form> */}
+          <form onSubmit={handleDeleteProject} className="text-black">
+            <div>
+              <label>Select Project:</label>
+              <select
+                value={deleteId}
+                onChange={(e) => setDeleteId(e.target.value)}
+                required
+              >
+                <option value="">Select Project</option>
+                {projects.map((project) => (
+                  <option key={project._id} value={project._id}>
+                    {project.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button type="submit">Delete Project</button>
+          </form> */}
         </div>
       </div>
     </section>
