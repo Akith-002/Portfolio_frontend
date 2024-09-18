@@ -181,39 +181,36 @@ const Projects = () => {
                   />
                 </div>
                 <Dialog
-                  size="lg"
+                  size="md"
                   open={!!openProject && openProject._id === project._id}
                   handler={handleClose}
                   className="px-10 py-6"
                 >
-                  <DialogHeader className="font-bold text-3xl">
+                  <DialogHeader className="font-bold text-blue-600 text-3xl underline">
                     {openProject?.name}
                   </DialogHeader>
-                  <DialogBody>
-                    <h1 className="mb-8 ml-4 w-8/9">
+                  <DialogBody className="bg-gray-300 rounded-xl">
+                    <h1 className="mb-8 ml-4 w-8/9 text-gray-800">
                       {" "}
                       {openProject?.description}
                     </h1>
-                    <div className="rounded-xl bg-blue-gray-300 px-5 py-3 text-white">
+                    <div className="bg-gray-100 rounded-xl px-5 py-3 text-black">
                       <p>
-                        Github link :{" "}
-                        <span className="underline">{openProject?.github}</span>
+                        <span className="text-blue-500">Github link : </span>
+                        <span className="underline hover:text-gray-700">
+                          {openProject?.github}
+                        </span>
                       </p>
                       <p>
-                        Linkedin link :{" "}
-                        <span className="underline">
+                        <span className="text-blue-500">Linkedin link :</span>{" "}
+                        <span className="underline hover:text-gray-700">
                           {openProject?.linkedIn}
                         </span>
                       </p>
                     </div>
                   </DialogBody>
                   <DialogFooter>
-                    <Button
-                      variant="text"
-                      color="red"
-                      onClick={handleClose}
-                      className="mr-1"
-                    >
+                    <Button color="red" onClick={handleClose} className="mr-1">
                       <span>Close</span>
                     </Button>
                   </DialogFooter>

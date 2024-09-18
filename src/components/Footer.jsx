@@ -40,13 +40,13 @@ const Footer = () => {
             <h3 className="text-xl font-semibold">Follow</h3>
             <div className="flex flex-col gap-4 font-semibold">
               <a
-                href="https://www.facebook.com/akith.chandinu/"
+                href="https://www.linkedin.com/in/akith-chandinu-14761a271/"
                 className="hover:text-yellow-400 ml-2"
               >
-                Facebook
+                LinkedIn
               </a>
-              <a href="#twitter" className="hover:text-yellow-400 ml-2">
-                Twitter
+              <a href="" className="hover:text-yellow-400 ml-2">
+                GitHub
               </a>
               <a
                 href="https://www.instagram.com/_akith_002/"
@@ -55,10 +55,10 @@ const Footer = () => {
                 Instagram
               </a>
               <a
-                href="https://www.linkedin.com/in/akith-chandinu-14761a271/"
+                href="https://www.facebook.com/akith.chandinu/"
                 className="hover:text-yellow-400 ml-2"
               >
-                LinkedIn
+                Facebook
               </a>
               <a
                 href="https://www.youtube.com/@akithchandinu6602"
@@ -92,7 +92,7 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="flex justify-center items-center h-16 text-center mt-8 text-gray-500 border-t border-t-2 border-gray-800">
+        <div className="flex justify-center items-center h-16 text-center mt-8 text-white border-t border-t-2 border-gray-800">
           <p>&copy; {new Date().getFullYear()} AKiNZ. All rights reserved.</p>
         </div>
       </div>

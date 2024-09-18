@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { HeartIcon } from "@heroicons/react/24/outline";
 
 // Fetching Blogs
 const Blogs = () => {
@@ -40,6 +41,7 @@ const Blogs = () => {
     formData.append("title", newBlog.title);
     formData.append("content", newBlog.content);
     formData.append("image", imageFile); // Append the image file to the form data
+    formData.append("url", newBlog.url); // Append the url to the form data
 
     try {
       const response = await fetch("http://localhost:5000/blogs", {
@@ -53,7 +55,7 @@ const Blogs = () => {
 
       const createdBlog = await response.json();
       setBlogs((prevBlogs) => [...prevBlogs, createdBlog]);
-      setNewBlog({ title: "", content: "" });
+      setNewBlog({ title: "", content: "", url: "" });
       setImageFile(null); // Clear the image state
     } catch (error) {
       console.error("Error creating blog:", error);
@@ -72,6 +74,7 @@ const Blogs = () => {
     const formData = new FormData();
     formData.append("title", updateBlog.title);
     formData.append("content", updateBlog.content);
+    formData.append("url", updateBlog.url); // Correct url field
     if (updateBlog.imageFile) {
       formData.append("image", updateBlog.imageFile); // Correct image field
     }
@@ -95,7 +98,7 @@ const Blogs = () => {
           blog._id === updatedBlog._id ? updatedBlog : blog
         )
       );
-      setUpdateBlog({ id: "", title: "", content: "", image: null });
+      setUpdateBlog({ id: "", title: "", content: "", url: "", image: null });
     } catch (error) {
       console.error("Error updating blog:", error);
     }
@@ -176,28 +179,33 @@ const Blogs = () => {
             key={blog._id}
             className=" bg-white rounded-lg shadow-lg p-6 transition-transform duration-300 transform hover:scale-105"
           >
-            <div className="mb-4">
+            <div className="mb-4 overflow-hidden rounded-md">
               {/* Display the uploaded image */}
               {blog.image ? (
                 <img
                   src={`http://localhost:5000${blog.image}`} // Image path
                   alt={blog.title}
-                  className="w-full h-40 object-cover rounded-md"
+                  className="w-full h-40 object-cover rounded-md transition-transform duration-300 transform hover:scale-110"
                 />
               ) : (
                 <div className="w-full h-40 bg-gray-200 rounded-md"></div> // Placeholder
               )}
             </div>
-            <h3 className="text-lg font-semibold mb-2">{blog.title}</h3>
+            <div className="mb-2 flex justify-between">
+              <h3 className="text-lg font-semibold ">{blog.title}</h3>
+              <HeartIcon className="w-8 h-8 text-yellow-800 hover:fill-yellow-800" />
+            </div>
             <p className="text-sm text-gray-700 mb-4">
               {blog.content.slice(0, 100)}...
             </p>
-            <button
-              onClick={() => openModal(blog)}
-              className="text-blue-500 hover:underline"
-            >
-              Read More
-            </button>
+            <div className="w-full px-1 transition-transform duration-300 transform hover:scale-105">
+              <button
+                onClick={() => openModal(blog)}
+                className="bg-black text-white py-2  rounded-lg hover:text-yellow-500 w-full text-center"
+              >
+                Read More
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -205,9 +213,9 @@ const Blogs = () => {
       {/* Modal */}
       {selectedBlog && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full relative">
+          <div className="bg-gray-200 p-8 rounded-lg shadow-lg max-w-lg w-full relative">
             <button
-              className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
+              className="absolute top-3 right-3 w-8 h-8 bg-gray-700 rounded rounded-md text-yellow-800 font-extrabold text-center hover:text-black"
               onClick={closeModal}
             >
               X
@@ -216,6 +224,18 @@ const Blogs = () => {
               {selectedBlog.title}
             </h3>
             <p className="text-gray-700 mb-4">{selectedBlog.content}</p>
+
+            {/* Add a link to the blog */}
+            {selectedBlog.url && (
+              <a
+                href={selectedBlog.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-yellow-800 text-black px-4 py-2 rounded rounded-lg hover:underline"
+              >
+                Visit Blog
+              </a>
+            )}
           </div>
         </div>
       )}
@@ -233,6 +253,12 @@ const Blogs = () => {
           value={newBlog.content}
           onChange={(e) => setNewBlog({ ...newBlog, content: e.target.value })}
           placeholder="Blog Content"
+        />
+        <input
+          type="text"
+          value={newBlog.url}
+          onChange={(e) => setNewBlog({ ...newBlog, url: e.target.value })}
+          placeholder="Blog URL"
         />
         <input
           type="file"
@@ -269,6 +295,14 @@ const Blogs = () => {
             setUpdateBlog({ ...updateBlog, content: e.target.value })
           }
           placeholder="Blog Content"
+        />
+        <input
+          type="text"
+          value={updateBlog.url}
+          onChange={(e) =>
+            setUpdateBlog({ ...updateBlog, url: e.target.value })
+          }
+          placeholder="Blog URL"
         />
         <input
           type="file"
