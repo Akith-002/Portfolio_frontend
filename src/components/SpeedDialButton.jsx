@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Chatbot from "react-chatbot-kit";
 import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/outline";
 import "react-chatbot-kit/build/main.css";
+import "./bot.css";
 
 import config from "../utils/Config.jsx";
 import actionProvider from "../utils/ActionProvider.js";
@@ -15,13 +16,14 @@ const SpeedDialButton = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 flex flex-col items-end">
+    <div className="fixed bottom-6 right-6 flex flex-col items-end z-20">
       {/* Chat Window */}
       {isChatOpen && (
         <Chatbot
           config={config}
           messageParser={messageParser}
           actionProvider={actionProvider}
+          placeholderText="What do you want to know?"
         />
       )}
 

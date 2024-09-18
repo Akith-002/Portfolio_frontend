@@ -1,0 +1,109 @@
+.react-chatbot-kit-chat-container {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 4px;
+  width: 350px;
+}
+
+.react-chatbot-kit-chat-inner-container {
+  background: linear-gradient(180deg, #616161 0%, #c7c7c7 100%);
+}
+
+.react-chatbot-kit-chat-message-container {
+  overflow-y: scroll; /* Only vertical scroll */
+  overflow-x: hidden; /* Hide horizontal scroll */
+  height: 400px;
+}
+
+/* Custom scrollbar for Chrome, Safari and Opera */
+.react-chatbot-kit-chat-message-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track color */
+.react-chatbot-kit-chat-message-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Thumb color */
+.react-chatbot-kit-chat-message-container::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
+}
+
+/* Thumb hover color */
+.react-chatbot-kit-chat-message-container::-webkit-scrollbar-thumb:hover {
+  background: #fff53f;
+}
+
+.react-chatbot-kit-user-avatar-container {
+  width: 3rem;
+  height: 3rem;
+  background-color: #4a6afe;
+}
+
+.react-chatbot-kit-user-avatar-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.react-chatbot-kit-chat-bot-message {
+  margin-left: 1rem;
+  width: 65%;
+  background-color: #3f3d3d;
+  border-radius: 10px;
+}
+
+.react-chatbot-kit-chat-bot-message-arrow {
+  border-right: 18px solid #3f3d3d;
+  border-top: 0px solid transparent;
+  border-bottom: 20px solid transparent;
+  left: -9px;
+  top: 0px;
+}
+
+.react-chatbot-kit-user-chat-message-arrow {
+  border-left: 18px solid #f1f1f1;
+  border-top: 0px solid transparent;
+  border-bottom: 20px solid transparent;
+  right: -9px;
+  top: 0px;
+}
+.react-chatbot-kit-chat-input-container {
+  justify-content: center;
+  bottom: 5px;
+}
+.react-chatbot-kit-chat-input-form {
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 0.5rem;
+  width: 96%;
+}
+
+.react-chatbot-kit-chat-input {
+  width: 90%;
+  border-radius: 10px;
+}
+
+.react-chatbot-kit-chat-input:focus {
+  outline: none;
+}
+
+.react-chatbot-kit-chat-btn-send {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100%;
+  background-color: #4a6afe;
+}
+.react-chatbot-kit-chat-btn-send:hover {
+  background-color: #2b52ff;
+}
+
+.react-chatbot-kit-chat-btn-send-icon {
+  width: 1.2rem;
+  fill: #000;
+}
