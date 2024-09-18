@@ -5,7 +5,7 @@ import "react-chatbot-kit/build/main.css";
 import "./bot.css";
 
 import config from "../utils/Config.jsx";
-import actionProvider from "../utils/ActionProvider.js";
+import actionProvider from "../utils/ActionProvider.jsx";
 import messageParser from "../utils/MessageParser.js";
 
 const SpeedDialButton = () => {

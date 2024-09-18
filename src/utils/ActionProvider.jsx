@@ -1,3 +1,5 @@
+import ReactMarkdown from "react-markdown";
+
 class ActionProvider {
   constructor(
     createChatBotMessage,
@@ -29,7 +31,9 @@ class ActionProvider {
     console.log(data);
 
     // Create a new chatbot message with the response
-    const botMessage = this.createChatBotMessage(data);
+    const botMessage = this.createChatBotMessage(
+      <ReactMarkdown>{data}</ReactMarkdown>
+    );
 
     // Update the state with the new message
     this.setState((prevState) => ({
