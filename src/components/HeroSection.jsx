@@ -1,5 +1,4 @@
 import React from "react";
-import img1 from "../assets/images/heroImg.png";
 import { Button } from "@material-tailwind/react";
 import myimg from "../assets/images/myImg.jpg";
 
