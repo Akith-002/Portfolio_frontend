@@ -1,7 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
+import emailjs from "emailjs-com";
 import bg from "../assets/images/footerBg.png";
 
 const Footer = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // EmailJS send function
+    emailjs
+      .send(
+        "service_sik26p6", // replace with your EmailJS Service ID
+        "template_q1ibitu", // replace with your EmailJS Template ID
+        formData, // form data being sent
+        "1dFkHeLKPgKY5pDXj" // replace with your EmailJS User ID
+      )
+      .then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+          alert("Message sent successfully!");
+        },
+        (error) => {
+          console.log("FAILED...", error);
+          alert("Failed to send message, please try again.");
+        }
+      );
+
+    // Reset form after submission
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
+  };
+
   return (
     <footer
       className="bg-gray-700 text-white pt-10 border-t-2 border-gray-800"
@@ -11,7 +56,6 @@ const Footer = () => {
         boxShadow: "0 0 10px 2px rgba(0, 0, 0, 0.8)",
       }}
     >
-      {/* blur the background */}
       <div className="container mx-auto px-4 ">
         {/* Footer Links */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-8">
@@ -45,7 +89,10 @@ const Footer = () => {
               >
                 LinkedIn
               </a>
-              <a href="" className="hover:text-yellow-400 ml-2">
+              <a
+                href="https://github.com/Akith-002"
+                className="hover:text-yellow-400 ml-2"
+              >
                 GitHub
               </a>
               <a
@@ -69,23 +116,44 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Email Subscribe */}
+          {/* Contact Me Section */}
           <div className="flex flex-col space-y-4">
-            <h3 className="text-xl font-semibold ">
-              Subscribe to Our Newsletter
-            </h3>
-            <p className="ml-4">Get updates right to your inbox!</p>
-            <form className="flex flex-col md:flex-row md:items-center ml-4">
+            <h3 className="text-xl font-semibold">Contact Me</h3>
+            <form
+              className="flex flex-col space-y-4 ml-4"
+              onSubmit={handleSubmit}
+            >
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Your Name"
+                className="p-2 w-full text-black rounded-md focus:shadow-xl focus:outline-none"
+                required
+              />
               <input
                 type="email"
-                className="p-2 w-full md:w-auto md:flex-grow text-black rounded-l-md focus:shadow-xl focus:outline-none"
-                placeholder="Enter your email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Your Email"
+                className="p-2 w-full text-black rounded-md focus:shadow-xl focus:outline-none"
+                required
+              />
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Your Message"
+                className="p-2 w-full text-black rounded-md focus:shadow-xl focus:outline-none"
+                required
               />
               <button
                 type="submit"
-                className="bg-gray-900 text-white p-2 rounded-r-md hover:bg-yellow-500 hover:text-black focus:outline-none"
+                className="bg-gray-900 text-white p-2 rounded-md hover:bg-yellow-500 hover:text-black focus:outline-none"
               >
-                Subscribe
+                Send Message
               </button>
             </form>
           </div>
