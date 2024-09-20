@@ -97,7 +97,7 @@ const SignIn = ({ setIsAuthenticated }) => {
               className="text-5xl font-bold text-center text-transparent bg-clip-text px-10 py-2 rounded-lg transition-transform transform hover:scale-105"
               style={{
                 backgroundImage:
-                  "linear-gradient(180deg, rgb(255 190 0), #222222)",
+                  "linear-gradient(180deg, #222222 , 10% ,rgb(255 190 0))",
               }}
             >
               WELCOME TO THE ADMIN PORTAL

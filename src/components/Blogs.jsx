@@ -5,15 +5,6 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [newBlog, setNewBlog] = useState({ title: "", content: "" });
-  const [imageFile, setImageFile] = useState(null); // New state to store the selected image
-  const [updateBlog, setUpdateBlog] = useState({
-    id: "",
-    title: "",
-    content: "",
-    image: null,
-  });
-  const [deleteBlogId, setDeleteBlogId] = useState("");
   const [selectedBlog, setSelectedBlog] = useState(null); // To manage modal content
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isVisible, setIsVisible] = useState(false); // State to track visibility
@@ -33,100 +24,6 @@ const Blogs = () => {
 
     fetchBlogs();
   }, []);
-
-  // Create a new blog
-  const createBlog = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", newBlog.title);
-    formData.append("content", newBlog.content);
-    formData.append("image", imageFile); // Append the image file to the form data
-    formData.append("url", newBlog.url); // Append the url to the form data
-
-    try {
-      const response = await fetch("http://localhost:5000/blogs", {
-        method: "POST",
-        body: formData, // Send form data instead of JSON
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to create blog");
-      }
-
-      const createdBlog = await response.json();
-      setBlogs((prevBlogs) => [...prevBlogs, createdBlog]);
-      setNewBlog({ title: "", content: "", url: "" });
-      setImageFile(null); // Clear the image state
-    } catch (error) {
-      console.error("Error creating blog:", error);
-    }
-  };
-
-  // Update a blog
-  const handleUpdateBlog = async (e) => {
-    e.preventDefault();
-
-    if (!updateBlog.id) {
-      console.error("Please select a blog to update");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("title", updateBlog.title);
-    formData.append("content", updateBlog.content);
-    formData.append("url", updateBlog.url); // Correct url field
-    if (updateBlog.imageFile) {
-      formData.append("image", updateBlog.imageFile); // Correct image field
-    }
-
-    try {
-      const response = await fetch(
-        `http://localhost:5000/blogs/${updateBlog.id}`,
-        {
-          method: "PATCH",
-          body: formData, // Send form data instead of JSON
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to update blog");
-      }
-
-      const updatedBlog = await response.json();
-      setBlogs((prevBlogs) =>
-        prevBlogs.map((blog) =>
-          blog._id === updatedBlog._id ? updatedBlog : blog
-        )
-      );
-      setUpdateBlog({ id: "", title: "", content: "", url: "", image: null });
-    } catch (error) {
-      console.error("Error updating blog:", error);
-    }
-  };
-
-  // Delete a blog
-  const handleDeleteBlog = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(
-        `http://localhost:5000/blogs/${deleteBlogId}`,
-        {
-          method: "DELETE",
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to delete blog");
-      }
-
-      setBlogs((prevBlogs) =>
-        prevBlogs.filter((blog) => blog._id !== deleteBlogId)
-      );
-      setDeleteBlogId("");
-    } catch (error) {
-      console.error("Error deleting blog:", error);
-    }
-  };
 
   useEffect(() => {
     const onScroll = () => {
@@ -163,7 +60,6 @@ const Blogs = () => {
       id="blogs"
       className="h-5/6 px-24 pt-12 py-20 flex flex-col items-center bg-gray-600 "
     >
-      {loading ? <div>Loading Blogs...</div> : null}
       <h2
         className={`text-5xl mb-12 transition-transform duration-[900ms] ${
           isVisible
@@ -173,6 +69,7 @@ const Blogs = () => {
       >
         Blogs
       </h2>
+      {loading ? <div>Loading Blogs...</div> : null}
       <div className="w-full grid grid-cols-4 gap-x-12 gap-y-6 px-4">
         {blogs.map((blog) => (
           <div
