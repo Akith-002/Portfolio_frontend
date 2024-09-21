@@ -299,6 +299,7 @@ const CompetitionsAdmin = () => {
             {selectedCompetition.image && (
               <img
                 src={`http://localhost:5000${selectedCompetition.image}`}
+                loading="lazy"
                 alt={selectedCompetition.title}
                 className="w-full h-40 object-cover rounded-md mb-4"
               />

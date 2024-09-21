@@ -63,7 +63,7 @@ const TechSection = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <img src={c} alt="C" className="w-24 h-24" />
+              <img src={c} alt="C" loading="lazy" className="w-24 h-24" />
             </a>
           </div>
           <div className="hover:animate-tilt">
@@ -72,7 +72,7 @@ const TechSection = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <img src={html} alt="HTML" className="w-24 h-24" />
+              <img src={html} alt="HTML" loading="lazy" className="w-24 h-24" />
             </a>
           </div>
           <div className="hover:animate-tilt">
@@ -81,7 +81,7 @@ const TechSection = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <img src={css} alt="CSS" className="w-24 h-24" />
+              <img src={css} alt="CSS" loading="lazy" className="w-24 h-24" />
             </a>
           </div>
           <div className="hover:animate-tilt">
@@ -90,49 +90,94 @@ const TechSection = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <img src={js} alt="JavaScript" className="w-24 h-24" />
+              <img
+                src={js}
+                alt="JavaScript"
+                loading="lazy"
+                className="w-24 h-24"
+              />
             </a>
           </div>
           <div className="hover:animate-tilt">
             <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer">
-              <img src={tailwindcss} alt="Tailwind CSS" className="w-24 h-24" />
+              <img
+                src={tailwindcss}
+                alt="Tailwind CSS"
+                loading="lazy"
+                className="w-24 h-24"
+              />
             </a>
           </div>
           <div className="hover:animate-tilt">
             <a href="https://react.dev/" target="_blank" rel="noreferrer">
-              <img src={reactIcon} alt="React" className="w-24 h-24" />
+              <img
+                src={reactIcon}
+                alt="React"
+                loading="lazy"
+                className="w-24 h-24"
+              />
             </a>
           </div>
           <div className="hover:animate-tilt">
             <a href="https://nuxt.com/" target="_blank" rel="noreferrer">
-              <img src={nuxtjs} alt="Nuxt.js" className="w-24 h-24" />
+              <img
+                src={nuxtjs}
+                alt="Nuxt.js"
+                loading="lazy"
+                className="w-24 h-24"
+              />
             </a>
           </div>
           <div className="hover:animate-tilt">
             <a href="https://www.figma.com/" target="_blank" rel="noreferrer">
-              <img src={figma} alt="Figma" className="w-24 h-24" />
+              <img
+                src={figma}
+                alt="Figma"
+                loading="lazy"
+                className="w-24 h-24"
+              />
             </a>
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-16 w-full">
           <div className="hover:animate-tilt">
             <a href="https://www.python.org/" target="_blank" rel="noreferrer">
-              <img src={python} alt="Python" className="w-24 h-24" />
+              <img
+                src={python}
+                alt="Python"
+                loading="lazy"
+                className="w-24 h-24"
+              />
             </a>
           </div>
           <div className="hover:animate-tilt">
             <a href="https://jupyter.org/" target="_blank" rel="noreferrer">
-              <img src={jupyter} alt="Jupyter" className="w-24 h-24" />
+              <img
+                src={jupyter}
+                alt="Jupyter"
+                loading="lazy"
+                className="w-24 h-24"
+              />
             </a>
           </div>
           <div className="hover:animate-tilt">
             <a href="https://matplotlib.org/" target="_blank" rel="noreferrer">
-              <img src={matplotlib} alt="Matplotlib" className="w-24 h-24" />
+              <img
+                src={matplotlib}
+                alt="Matplotlib"
+                loading="lazy"
+                className="w-24 h-24"
+              />
             </a>
           </div>
           <div className="hover:animate-tilt">
             <a href="https://numpy.org/" target="_blank" rel="noreferrer">
-              <img src={numpy} alt="NumPy" className="w-24 h-24" />
+              <img
+                src={numpy}
+                alt="NumPy"
+                loading="lazy"
+                className="w-24 h-24"
+              />
             </a>
           </div>
           <div className="hover:animate-tilt">
@@ -141,12 +186,17 @@ const TechSection = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <img src={pandas} alt="Pandas" className="w-24 h-24" />
+              <img
+                src={pandas}
+                alt="Pandas"
+                loading="lazy"
+                className="w-24 h-24"
+              />
             </a>
           </div>
           <div className="hover:animate-tilt">
             <a href="https://git-scm.com/" target="_blank" rel="noreferrer">
-              <img src={git} alt="Git" className="w-24 h-24" />
+              <img src={git} alt="Git" loading="lazy" className="w-24 h-24" />
             </a>
           </div>
           <div className="hover:animate-tilt">
@@ -155,7 +205,12 @@ const TechSection = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <img src={vscode} alt="VSCode" className="w-24 h-24" />
+              <img
+                src={vscode}
+                alt="VSCode"
+                loading="lazy"
+                className="w-24 h-24"
+              />
             </a>
           </div>
         </div>

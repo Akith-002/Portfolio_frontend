@@ -105,6 +105,7 @@ const SignIn = ({ setIsAuthenticated }) => {
           </div>
           <img
             src={signInBg}
+            loading="lazy"
             alt="Sign In"
             className="h-[800px] w-[800px] object-cover"
           />

@@ -39,7 +39,7 @@ const Projects = () => {
     const onScroll = () => {
       const scrollPos = window.scrollY; // Get scroll position
       setScrollPosition(scrollPos);
-      if (scrollPos > 650) {
+      if (scrollPos > 1500) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -80,7 +80,12 @@ const Projects = () => {
               : "transform -translate-x-40 opacity-0"
           } `}
         >
-          <img src={projImg2} alt="projects" className="h-full object-cover" />
+          <img
+            src={projImg2}
+            loading="lazy"
+            alt="projects"
+            className="h-full object-cover"
+          />
         </div>
         <div className="w-1/2 h-full px-8">
           <ul className="flex flex-col">

@@ -30,7 +30,7 @@ const Blogs = () => {
       setScrollPosition(scrollPos);
 
       // Trigger animation when scrolling past 300px (adjust as needed)
-      if (scrollPos > 1400) {
+      if (scrollPos > 2300) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -80,6 +80,7 @@ const Blogs = () => {
               {blog.image ? (
                 <img
                   src={`http://localhost:5000${blog.image}`} // Image path
+                  loading="lazy"
                   alt={blog.title}
                   className="w-full h-40 object-cover rounded-md transition-transform duration-300 transform hover:scale-110"
                 />
@@ -123,6 +124,7 @@ const Blogs = () => {
             {selectedBlog.image && (
               <img
                 src={`http://localhost:5000${selectedBlog.image}`}
+                loading="lazy"
                 alt={selectedBlog.title}
                 className="w-full h-40 object-cover rounded-md mb-4"
               />

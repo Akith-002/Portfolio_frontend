@@ -2,3 +2,22 @@
   margin: 0;
   padding: 0;
 }
+
+/* CSS for changing gradient background */
+.gradient-bg {
+  background: linear-gradient(45deg, #212121, #6a6a6a, #333333, #666363);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

@@ -15,6 +15,7 @@ const HeroSection = () => {
         <div className="flex flex-col gap-4 items-center">
           <img
             src={myimg}
+            loading="lazy"
             alt="myimg"
             className="w-60 h-60 rounded-full border border-2 border-yellow-600 animate-slidein opacity-0 [--slidein-delay:300ms] shadow-[0_0_10px_3px] shadow-yellow-400"
           />

@@ -277,6 +277,7 @@ const BlogsAdmin = () => {
             {selectedBlog.image && (
               <img
                 src={`http://localhost:5000${selectedBlog.image}`}
+                loading="lazy"
                 alt={selectedBlog.title}
                 className="w-full h-40 object-cover rounded-md mb-4"
               />
