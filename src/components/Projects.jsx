@@ -84,7 +84,7 @@ const Projects = () => {
             src={projImg2}
             loading="lazy"
             alt="projects"
-            className="h-full object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
         <div className="w-1/2 h-full px-8">

@@ -29,7 +29,7 @@ const Competitions = () => {
       setScrollPosition(scrollPos);
 
       // Trigger animation when scrolling past 300px (adjust as needed)
-      if (scrollPos > 850) {
+      if (scrollPos > 800) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -44,11 +44,11 @@ const Competitions = () => {
   }, [scrollPosition]);
 
   return (
-    <section className="relative gradient-bg py-10">
+    <section id="competitions" className="relative gradient-bg py-10">
       <h1 className="text-4xl font-bold text-center mb-10 text-white ">
         Competitions
       </h1>
-      <div className="flex flex-col flex-wrap justify-center items-center">
+      <div className="flex flex-col gap-6 flex-wrap justify-center items-center">
         {loading ? (
           <p>Loading competitions...</p>
         ) : (
@@ -57,11 +57,13 @@ const Competitions = () => {
               key={competition.id}
               className={`card flex gap-8 transition-transform transform ${
                 isVisible
-                  ? `translate-y-0 opacity-100`
-                  : `-translate-y-10 opacity-0`
-              } duration-3000
+                  ? `translate-x-0 opacity-100`
+                  : `${
+                      index % 2 === 0 ? "-translate-x-16" : "translate-x-16"
+                    } opacity-0`
+              } duration-4000
               } mb-8 w-full max-w-3xl p-6 bg-transparent shadow-[0_0_20px] shadow-yellow-500 rounded-lg hover:bg-gray-700`}
-              style={{ transitionDelay: `${index * 1000}ms` }} // Staggered effect
+              style={{ transitionDelay: `${index * 500}ms` }} // Staggered effect
             >
               <div className="w-1/3 flex justify-center items-center object-cover overflow-hidden rounded-lg shadow-[0_0_8px] shadow-white">
                 {competition.image && (
@@ -69,7 +71,7 @@ const Competitions = () => {
                     src={`http://localhost:5000${competition.image}`}
                     loading="lazy"
                     alt={competition.title}
-                    className="h-full object-cover rounded"
+                    className="h-full w-full object-cover rounded"
                   />
                 )}
               </div>

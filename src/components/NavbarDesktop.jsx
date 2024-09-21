@@ -43,6 +43,19 @@ function NavList() {
         className="p-1 font-medium text-white"
       >
         <a
+          href="#competitions"
+          className="flex items-center hover:text-yellow-500 transition-colors"
+        >
+          Competitions
+        </a>
+      </Typography>
+      <Typography
+        as="li"
+        variant="large"
+        color="blue-gray"
+        className="p-1 font-medium text-white"
+      >
+        <a
           href="#projects"
           className="flex items-center hover:text-yellow-500 transition-colors"
         >

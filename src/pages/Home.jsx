@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import Projects from "../components/Projects";
-import Blogs from "../components/Blogs";
-import NavbarDesktop from "../components/NavbarDesktop";
-import HeroSection from "../components/HeroSection";
-import TechSection from "../components/TechSection";
-import Footer from "../components/Footer";
-import SpeedDialButton from "../components/SpeedDialButton";
-import Competitions from "../components/Competitions";
+const Projects = React.lazy(() => import("../components/Projects"));
+const Blogs = React.lazy(() => import("../components/Blogs"));
+const NavbarDesktop = React.lazy(() => import("../components/NavbarDesktop"));
+const HeroSection = React.lazy(() => import("../components/HeroSection"));
+const TechSection = React.lazy(() => import("../components/TechSection"));
+const Footer = React.lazy(() => import("../components/Footer"));
+const SpeedDialButton = React.lazy(() =>
+  import("../components/SpeedDialButton")
+);
+const Competitions = React.lazy(() => import("../components/Competitions"));
 
 const Home = () => {
   return (
