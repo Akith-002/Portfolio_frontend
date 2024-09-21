@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { HeartIcon } from "@heroicons/react/24/outline";
 
 // Fetching Blogs
 const Blogs = () => {
@@ -74,7 +73,7 @@ const Blogs = () => {
         {blogs.map((blog) => (
           <div
             key={blog._id}
-            className=" bg-white rounded-lg shadow-lg p-6 transition-transform duration-300 transform hover:scale-105"
+            className=" bg-white h-[435px] rounded-lg shadow-lg p-6 transition-transform duration-300 transform hover:scale-105"
           >
             <div className="mb-4 overflow-hidden rounded-md">
               {/* Display the uploaded image */}
@@ -88,11 +87,12 @@ const Blogs = () => {
                 <div className="w-full h-40 bg-gray-200 rounded-md"></div> // Placeholder
               )}
             </div>
-            <div className="mb-2 flex justify-between">
-              <h3 className="text-lg font-semibold ">{blog.title}</h3>
-              <HeartIcon className="w-8 h-8 text-yellow-800 hover:fill-yellow-800" />
+            <div className="mb-2 h-1/6 mb-2 flex justify-between">
+              <h3 className="text-lg w-full font-semibold leading-6">
+                {blog.title}
+              </h3>
             </div>
-            <p className="text-sm text-gray-700 mb-4">
+            <p className="text-sm h-20 text-gray-700 mb-4">
               {blog.content.slice(0, 100)}...
             </p>
             <div className="w-full px-1 transition-transform duration-300 transform hover:scale-105">
@@ -120,6 +120,13 @@ const Blogs = () => {
             <h3 className="text-2xl font-semibold mb-4">
               {selectedBlog.title}
             </h3>
+            {selectedBlog.image && (
+              <img
+                src={`http://localhost:5000${selectedBlog.image}`}
+                alt={selectedBlog.title}
+                className="w-full h-40 object-cover rounded-md mb-4"
+              />
+            )}
             <p className="text-gray-700 mb-4">{selectedBlog.content}</p>
 
             {/* Add a link to the blog */}
@@ -136,96 +143,6 @@ const Blogs = () => {
           </div>
         </div>
       )}
-
-      {/* Create Blog Form */}
-      {/* <form onSubmit={createBlog} encType="multipart/form-data">
-        <h2>Create Blog</h2>
-        <input
-          type="text"
-          value={newBlog.title}
-          onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}
-          placeholder="Blog Title"
-        />
-        <textarea
-          value={newBlog.content}
-          onChange={(e) => setNewBlog({ ...newBlog, content: e.target.value })}
-          placeholder="Blog Content"
-        />
-        <input
-          type="text"
-          value={newBlog.url}
-          onChange={(e) => setNewBlog({ ...newBlog, url: e.target.value })}
-          placeholder="Blog URL"
-        />
-        <input
-          type="file"
-          onChange={(e) => setImageFile(e.target.files[0])} // Handle image file selection
-        />
-        <button type="submit">Create Blog</button>
-      </form> */}
-
-      {/* Update Blog Form */}
-      {/* <form onSubmit={handleUpdateBlog} encType="multipart/form-data">
-        <h2>Update Blog</h2>
-        <select
-          value={updateBlog.id}
-          onChange={(e) => setUpdateBlog({ ...updateBlog, id: e.target.value })}
-        >
-          <option value="">Select Blog</option>
-          {blogs.map((blog) => (
-            <option key={blog._id} value={blog._id}>
-              {blog.title}
-            </option>
-          ))}
-        </select>
-        <input
-          type="text"
-          value={updateBlog.title}
-          onChange={(e) =>
-            setUpdateBlog({ ...updateBlog, title: e.target.value })
-          }
-          placeholder="Blog Title"
-        />
-        <textarea
-          value={updateBlog.content}
-          onChange={(e) =>
-            setUpdateBlog({ ...updateBlog, content: e.target.value })
-          }
-          placeholder="Blog Content"
-        />
-        <input
-          type="text"
-          value={updateBlog.url}
-          onChange={(e) =>
-            setUpdateBlog({ ...updateBlog, url: e.target.value })
-          }
-          placeholder="Blog URL"
-        />
-        <input
-          type="file"
-          onChange={(e) =>
-            setUpdateBlog({ ...updateBlog, imageFile: e.target.files[0] })
-          } // Handle image file selection for updating
-        />
-        <button type="submit">Update Blog</button>
-      </form> */}
-
-      {/* Delete Blog Form */}
-      {/* <form onSubmit={handleDeleteBlog}>
-        <h2>Delete Blog</h2>
-        <select
-          value={deleteBlogId}
-          onChange={(e) => setDeleteBlogId(e.target.value)}
-        >
-          <option value="">Select Blog</option>
-          {blogs.map((blog) => (
-            <option key={blog._id} value={blog._id}>
-              {blog.title}
-            </option>
-          ))}
-        </select>
-        <button type="submit">Delete Blog</button>
-      </form> */}
     </section>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProjectsAdmin from "../components/ProjectsAdmin";
 import BlogsAdmin from "../components/BlogsAdmin";
+import CompetitionsAdmin from "../components/CompetitionsAdmin";
 import bg1 from "../assets/images/bg1.png";
 
 const AdminPage = () => {
@@ -46,6 +47,16 @@ const AdminPage = () => {
         >
           Blogs
         </button>
+        <button
+          className={`p-2 px-4 font-semibold ${
+            activeTab === "competitions"
+              ? "bg-black text-yellow-500"
+              : "bg-gray-800 text-white"
+          } rounded-md hover:bg-black hover:text-yellow-500`}
+          onClick={() => handleTabClick("competitions")}
+        >
+          Competitions
+        </button>
       </div>
 
       {/* Content */}
@@ -55,6 +66,9 @@ const AdminPage = () => {
 
         {/* Blogs Section */}
         {activeTab === "blogs" && <BlogsAdmin />}
+
+        {/* Competitions Section */}
+        {activeTab === "competitions" && <CompetitionsAdmin />}
       </div>
     </div>
   );

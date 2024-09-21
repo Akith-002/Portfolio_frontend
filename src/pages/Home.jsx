@@ -6,6 +6,7 @@ import HeroSection from "../components/HeroSection";
 import TechSection from "../components/TechSection";
 import Footer from "../components/Footer";
 import SpeedDialButton from "../components/SpeedDialButton";
+import Competitions from "../components/Competitions";
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
       <SpeedDialButton />
       <HeroSection />
       <TechSection />
+      <Competitions />
       <Projects />
       <Blogs />
       <Footer />

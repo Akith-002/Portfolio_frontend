@@ -6,7 +6,7 @@ const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center shadow-lg">
-      <div className="relative bg-white py-10 px-8 rounded-lg shadow-md max-w-lg w-full">
+      <div className="relative bg-white py-10 px-8 rounded-lg shadow-md max-w-xl w-full">
         <button
           className="absolute right-3 top-3 bg-gray-500 text-white py-2 px-4 rounded hover:bg-red-600 hover:shadow-md hover:shadow-red-500 hover:text-black"
           onClick={onClose}
@@ -160,8 +160,8 @@ const ProjectsAdmin = () => {
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
       >
-        <h2 className="text-xl font-bold mb-4">Create New Project</h2>
         <form onSubmit={handleCreateProject}>
+          <h2 className="text-xl font-bold mb-4">Create New Project</h2>
           <input
             type="text"
             value={newProject.name}
@@ -325,7 +325,7 @@ const ProjectsAdmin = () => {
         </p>
         <div className="mt-4 flex justify-evenly">
           <button
-            className="bg-red-500 text-white w-1/3 py-2 px-4 mr-2 rounded hover:shadow hover:shadow-red-500 hover:text-black"
+            className="bg-red-500 text-white w-1/3 py-2 px-4 rounded hover:shadow hover:shadow-red-500 hover:text-black"
             onClick={handleDeleteProject}
           >
             Yes, Delete
