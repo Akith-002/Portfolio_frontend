@@ -6,6 +6,7 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 function NavList() {
   return (
@@ -96,14 +97,15 @@ const NavbarDesktop = () => {
     <>
       <Navbar className="sticky top-0 z-10 bg-black border-none h-max max-w-full rounded-none px-24 py-3">
         <div className="flex items-center justify-between text-white">
-          <Typography
-            as="a"
-            href="#"
-            variant="h4"
-            className="mr-4 cursor-pointer py-1.5 "
-          >
-            Portfolio
-          </Typography>
+          <Link to="signin">
+            <Typography
+              as="a"
+              variant="h4"
+              className="mr-4 cursor-pointer py-1.5 "
+            >
+              Portfolio
+            </Typography>
+          </Link>
           <div className="hidden lg:block">
             <NavList />
           </div>
