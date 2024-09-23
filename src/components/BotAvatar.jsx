@@ -1,6 +1,6 @@
 import React from "react";
 
-import botImg from "../assets/images/BOT-image2.png";
+import botImg from "../assets/images/BOT-image.gif";
 
 const BotAvatar = () => {
   return (
