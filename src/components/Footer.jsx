@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
-import bg from "../assets/images/footerBg.png";
+import bg from "/assets/images/footerBg.png";
 
 const Footer = () => {
   const [formData, setFormData] = useState({

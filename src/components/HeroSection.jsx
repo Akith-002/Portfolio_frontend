@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@material-tailwind/react";
-import myimg from "../assets/images/myImg.jpg";
+import myimg from "/assets/images/myImg.jpg";
 
 const HeroSection = () => {
   return (

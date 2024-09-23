@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
-import c from "../assets/icons/c-original.svg";
-import html from "../assets/icons/html5-original.svg";
-import css from "../assets/icons/css3-original.svg";
-import js from "../assets/icons/javascript-original.svg";
-import reactIcon from "../assets/icons/react-original.svg";
-import figma from "../assets/icons/figma-original.svg";
-import git from "../assets/icons/git-original.svg";
-import jupyter from "../assets/icons/jupyter-original.svg";
-import matplotlib from "../assets/icons/matplotlib-original.svg";
-import numpy from "../assets/icons/numpy-original.svg";
-import nuxtjs from "../assets/icons/nuxtjs-original.svg";
-import pandas from "../assets/icons/pandas-original.svg";
-import python from "../assets/icons/python-original.svg";
-import tailwindcss from "../assets/icons/tailwindcss-original.svg";
-import vscode from "../assets/icons/vscode-original.svg";
+import c from "/assets/icons/c-original.svg";
+import html from "/assets/icons/html5-original.svg";
+import css from "/assets/icons/css3-original.svg";
+import js from "/assets/icons/javascript-original.svg";
+import reactIcon from "/assets/icons/react-original.svg";
+import figma from "/assets/icons/figma-original.svg";
+import git from "/assets/icons/git-original.svg";
+import jupyter from "/assets/icons/jupyter-original.svg";
+import matplotlib from "/assets/icons/matplotlib-original.svg";
+import numpy from "/assets/icons/numpy-original.svg";
+import nuxtjs from "/assets/icons/nuxtjs-original.svg";
+import pandas from "/assets/icons/pandas-original.svg";
+import python from "/assets/icons/python-original.svg";
+import tailwindcss from "/assets/icons/tailwindcss-original.svg";
+import vscode from "/assets/icons/vscode-original.svg";
 
 const TechSection = () => {
   const [scrollPosition, setScrollPosition] = useState(0);

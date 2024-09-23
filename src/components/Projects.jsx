@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import projImg2 from "../assets/images/projects_img2.jpg";
+import projImg2 from "/assets/images/projects_img2.jpg";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import {
   Button,
