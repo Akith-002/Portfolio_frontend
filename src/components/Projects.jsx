@@ -94,10 +94,15 @@ const Projects = () => {
             {projects.map((project) => (
               <li
                 key={project._id}
-                className="flex justify-between my-6 pb-2 px-6 border-b border-gray-700 h-14"
+                className="flex justify-between my-6 pb-6 px-6 border-b border-gray-700 h-14"
               >
                 <div className="w-5/6 flex items-center">
-                  <h3 className="text-2xl">{project.name}</h3>
+                  <h3
+                    className="text-2xl hover:text-yellow-500 hover:underline"
+                    onClick={() => handleOpen(project)}
+                  >
+                    {project.name}
+                  </h3>
                 </div>
                 <div className="w-1/6 flex justify-center items-center">
                   <ArrowUpRightIcon
