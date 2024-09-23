@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
+
 const Competitions = () => {
   const [competitions, setCompetitions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ const Competitions = () => {
   useEffect(() => {
     const fetchCompetitions = async () => {
       try {
-        const response = await fetch("http://localhost:5000/competitions");
+        const response = await fetch(`${BackEnd_URL}/competitions`);
         const data = await response.json();
         setCompetitions(data);
         setLoading(false);
@@ -68,7 +70,7 @@ const Competitions = () => {
               <div className="w-1/3 flex justify-center items-center object-cover overflow-hidden rounded-lg shadow-[0_0_8px] shadow-white">
                 {competition.image && (
                   <img
-                    src={`http://localhost:5000${competition.image}`}
+                    src={`${BackEnd_URL}${competition.image}`}
                     loading="lazy"
                     alt={competition.title}
                     className="h-full w-full object-cover rounded"

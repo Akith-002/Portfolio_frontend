@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { set } from "mongoose";
+
+const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
 
 // Modal Component
 const Modal = ({ isOpen, onClose, children }) => {
@@ -50,7 +51,7 @@ const CompetitionsAdmin = () => {
   useEffect(() => {
     const fetchCompetitions = async () => {
       try {
-        const response = await fetch("http://localhost:5000/competitions");
+        const response = await fetch(`${BackEnd_URL}/competitions`);
         const data = await response.json();
         setCompetitions(data);
         setCompetitionLoading(false);
@@ -74,7 +75,7 @@ const CompetitionsAdmin = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/competitions", {
+      const response = await fetch(`${BackEnd_URL}/competitions`, {
         method: "POST",
         body: formData, // Send form data instead of JSON
       });
@@ -115,7 +116,7 @@ const CompetitionsAdmin = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/competitions/${updatecompetition.id}`,
+        `${BackEnd_URL}/competitions/${updatecompetition.id}`,
         {
           method: "PATCH",
           body: formData, // Send form data instead of JSON
@@ -158,7 +159,7 @@ const CompetitionsAdmin = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/competitions/${deleteCompetitionId}`,
+        `${BackEnd_URL}/competitions/${deleteCompetitionId}`,
         {
           method: "DELETE",
         }
@@ -298,7 +299,7 @@ const CompetitionsAdmin = () => {
             </div>
             {selectedCompetition.image && (
               <img
-                src={`http://localhost:5000${selectedCompetition.image}`}
+                src={`${BackEnd_URL}${selectedCompetition.image}`}
                 loading="lazy"
                 alt={selectedCompetition.title}
                 className="w-full h-40 object-cover rounded-md mb-4"

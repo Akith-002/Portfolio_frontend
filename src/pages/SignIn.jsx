@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import signInBg from "../assets/images/signinbg.jpg";
 import bg1 from "../assets/images/bg1.png";
 
+const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
+
 const SignIn = ({ setIsAuthenticated }) => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
@@ -18,7 +20,7 @@ const SignIn = ({ setIsAuthenticated }) => {
     const { username, password } = formData;
 
     // fetch user credentials from backend and validate
-    fetch("http://localhost:5000/signin", {
+    fetch(`${BackEnd_URL}/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

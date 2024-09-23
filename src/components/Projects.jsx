@@ -9,6 +9,8 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 
+const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
+
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -24,7 +26,7 @@ const Projects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("http://localhost:5000/projects");
+        const response = await fetch(`${BackEnd_URL}/projects`);
         const data = await response.json();
         setProjects(data);
       } catch (error) {

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
+
 // Fetching Blogs
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -12,7 +14,7 @@ const Blogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("http://localhost:5000/blogs");
+        const response = await fetch(`${BackEnd_URL}/blogs`);
         const data = await response.json();
         setBlogs(data);
         setLoading(false);
@@ -79,7 +81,7 @@ const Blogs = () => {
               {/* Display the uploaded image */}
               {blog.image ? (
                 <img
-                  src={`http://localhost:5000${blog.image}`} // Image path
+                  src={`${BackEnd_URL}${blog.image}`}
                   loading="lazy"
                   alt={blog.title}
                   className="w-full h-40 object-cover rounded-md transition-transform duration-300 transform hover:scale-110"
@@ -123,7 +125,7 @@ const Blogs = () => {
             </h3>
             {selectedBlog.image && (
               <img
-                src={`http://localhost:5000${selectedBlog.image}`}
+                src={`${BackEnd_URL}${selectedBlog.image}`}
                 loading="lazy"
                 alt={selectedBlog.title}
                 className="w-full h-40 object-cover rounded-md mb-4"

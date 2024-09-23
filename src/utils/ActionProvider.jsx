@@ -1,5 +1,7 @@
 import ReactMarkdown from "react-markdown";
 
+const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
+
 class ActionProvider {
   constructor(
     createChatBotMessage,
@@ -18,7 +20,7 @@ class ActionProvider {
 
   async handleChatbotAPI(userMessage) {
     // API call to your backend
-    const response = await fetch("http://localhost:5000/chat", {
+    const response = await fetch(`${BackEnd_URL}/chat`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

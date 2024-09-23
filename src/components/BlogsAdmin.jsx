@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
+const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
+
 // Modal Component
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -49,7 +51,7 @@ const BlogsAdmin = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("http://localhost:5000/blogs");
+        const response = await fetch(`${BackEnd_URL}/blogs`);
         const data = await response.json();
         setBlogs(data);
         setBlogLoading(false);
@@ -71,7 +73,7 @@ const BlogsAdmin = () => {
     formData.append("url", newBlog.url); // Append the url to the form data
 
     try {
-      const response = await fetch("http://localhost:5000/blogs", {
+      const response = await fetch(`${BackEnd_URL}/blogs`, {
         method: "POST",
         body: formData, // Send form data instead of JSON
       });
@@ -108,13 +110,10 @@ const BlogsAdmin = () => {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:5000/blogs/${updateBlog.id}`,
-        {
-          method: "PATCH",
-          body: formData, // Send form data instead of JSON
-        }
-      );
+      const response = await fetch(`${BackEnd_URL}/blogs/${updateBlog.id}`, {
+        method: "PATCH",
+        body: formData, // Send form data instead of JSON
+      });
 
       if (!response.ok) {
         throw new Error("Failed to update blog");
@@ -144,12 +143,9 @@ const BlogsAdmin = () => {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:5000/blogs/${deleteBlogId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${BackEnd_URL}/blogs/${deleteBlogId}`, {
+        method: "DELETE",
+      });
 
       if (!response.ok) {
         throw new Error("Failed to delete blog");
@@ -260,7 +256,7 @@ const BlogsAdmin = () => {
         {selectedBlog && (
           <>
             <div>
-              <h1 className="text-2xl font-bold mb-4">
+              <h1 className="text-2xl w-5/6 font-bold mb-4">
                 {selectedBlog.title}
                 {selectedBlog.url && (
                   <a
@@ -276,7 +272,7 @@ const BlogsAdmin = () => {
             </div>
             {selectedBlog.image && (
               <img
-                src={`http://localhost:5000${selectedBlog.image}`}
+                src={`${BackEnd_URL}${selectedBlog.image}`}
                 loading="lazy"
                 alt={selectedBlog.title}
                 className="w-full h-40 object-cover rounded-md mb-4"

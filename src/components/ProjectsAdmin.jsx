@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
+const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
+
 // Modal Component
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -46,7 +48,7 @@ const ProjectsAdmin = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("http://localhost:5000/projects");
+        const response = await fetch(`${BackEnd_URL}/projects`);
         const data = await response.json();
         setProjects(data);
         setProjectLoading(false);
@@ -62,7 +64,7 @@ const ProjectsAdmin = () => {
   const handleCreateProject = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/projects", {
+      const response = await fetch(`${BackEnd_URL}/projects`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +85,7 @@ const ProjectsAdmin = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:5000/projects/${selectedProject._id}`,
+        `${BackEnd_URL}/projects/${selectedProject._id}`,
         {
           method: "PATCH",
           headers: {
@@ -107,7 +109,7 @@ const ProjectsAdmin = () => {
   const handleDeleteProject = async (e) => {
     e.preventDefault();
     try {
-      await fetch(`http://localhost:5000/projects/${deleteId}`, {
+      await fetch(`${BackEnd_URL}/projects/${deleteId}`, {
         method: "DELETE",
       });
       setProjects(projects.filter((proj) => proj._id !== deleteId));
