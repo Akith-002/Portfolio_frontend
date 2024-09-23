@@ -64,10 +64,10 @@ const Competitions = () => {
                       index % 2 === 0 ? "-translate-x-16" : "translate-x-16"
                     } opacity-0`
               } duration-4000
-              } mb-8 w-full max-w-3xl p-6 bg-transparent shadow-[0_0_20px] shadow-yellow-500 rounded-lg hover:bg-gray-700`}
+              } mb-8 w-full max-w-3xl p-4 bg-transparent shadow-[0_0_20px] shadow-yellow-500 rounded-lg hover:bg-gray-700`}
               style={{ transitionDelay: `${index * 500}ms` }} // Staggered effect
             >
-              <div className="w-1/3 flex justify-center items-center object-cover overflow-hidden rounded-lg shadow-[0_0_8px] shadow-white">
+              <div className="w-2/5 flex justify-center items-center object-cover overflow-hidden rounded-lg shadow-[0_0_8px] shadow-white">
                 {competition.image && (
                   <img
                     src={`${BackEnd_URL}${competition.image}`}
@@ -77,7 +77,7 @@ const Competitions = () => {
                   />
                 )}
               </div>
-              <div className="w-2/3">
+              <div className="w-3/5 p-2">
                 <h2 className="text-2xl font-semibold mb-4 underline">
                   {competition.title}
                 </h2>
