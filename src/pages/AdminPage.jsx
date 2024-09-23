@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProjectsAdmin from "../components/ProjectsAdmin";
 import BlogsAdmin from "../components/BlogsAdmin";
 import CompetitionsAdmin from "../components/CompetitionsAdmin";
-import bg1 from "../assets/images/bg1.png";
+import bg1 from "/assets/images/bg1.png";
 
 const AdminPage = () => {
   // State to control which section is active

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import signInBg from "../assets/images/signinbg.jpg";
-import bg1 from "../assets/images/bg1.png";
+import signInBg from "/assets/images/signinbg.jpg";
+import bg1 from "/assets/images/bg1.png";
 
 const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
 
