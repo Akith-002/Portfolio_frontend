@@ -41,7 +41,7 @@ const Projects = () => {
     const onScroll = () => {
       const scrollPos = window.scrollY; // Get scroll position
       setScrollPosition(scrollPos);
-      if (scrollPos > 1450) {
+      if (scrollPos > 1550) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
