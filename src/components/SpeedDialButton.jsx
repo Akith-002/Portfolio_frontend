@@ -31,6 +31,7 @@ const SpeedDialButton = () => {
       <button
         onClick={toggleChat}
         className="bg-black text-yellow-500 border-2 border-yellow-300 p-4 rounded-full shadow-lg hover:bg-yellow-400 hover:text-black transition-all"
+        aria-label="Speed dial button"
       >
         <ChatBubbleLeftEllipsisIcon className="h-8 w-8" />
       </button>

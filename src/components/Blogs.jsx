@@ -46,6 +46,25 @@ const Blogs = () => {
     };
   }, [scrollPosition]);
 
+  // Listen for 'Escape' key to close modal
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    if (selectedBlog) {
+      // Add event listener when modal is open
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      // Remove event listener when modal is closed or component is unmounted
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedBlog]);
+
   // Function to open modal
   const openModal = (blog) => {
     setSelectedBlog(blog);

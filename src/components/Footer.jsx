@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import emailjs from "emailjs-com";
 import bg from "/assets/images/footerBg.png";
 
+const userId = import.meta.env.VITE_EMAILJS_USER_ID;
+
 const Footer = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -26,7 +28,7 @@ const Footer = () => {
         "service_sik26p6", // replace with your EmailJS Service ID
         "template_q1ibitu", // replace with your EmailJS Template ID
         formData, // form data being sent
-        "1dFkHeLKPgKY5pDXj" // replace with your EmailJS User ID
+        userId // replace with your EmailJS User ID
       )
       .then(
         (response) => {
