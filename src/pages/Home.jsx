@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense } from "react";
 const Projects = React.lazy(() => import("../components/Projects"));
 const Blogs = React.lazy(() => import("../components/Blogs"));
 const NavbarDesktop = React.lazy(() => import("../components/NavbarDesktop"));
@@ -13,21 +13,23 @@ const Competitions = React.lazy(() => import("../components/Competitions"));
 const Home = () => {
   return (
     <main
-      className="size-full"
+      className="w-full min-h-screen"
       style={{
         background:
           "linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0.15) 100%), radial-gradient(at top center, rgba(255, 255, 255, 0.40) 0%, rgba(0, 0, 0, 0.40) 120%) #989898",
         backgroundBlendMode: "multiply, multiply",
       }}
     >
-      <NavbarDesktop />
-      <SpeedDialButton />
-      <HeroSection />
-      <TechSection />
-      <Competitions />
-      <Projects />
-      <Blogs />
-      <Footer />
+      <Suspense fallback={<div>Loading...</div>}>
+        <NavbarDesktop />
+        <SpeedDialButton />
+        <HeroSection />
+        <TechSection />
+        <Competitions />
+        <Projects />
+        <Blogs />
+        <Footer />
+      </Suspense>
     </main>
   );
 };
