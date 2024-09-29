@@ -9,6 +9,13 @@ const SpeedDialButton = React.lazy(() =>
   import("../components/SpeedDialButton")
 );
 const Competitions = React.lazy(() => import("../components/Competitions"));
+import "../styles/Loading.css";
+
+const Loader = () => (
+  <div className="loader-container">
+    <div className="loader"></div>
+  </div>
+);
 
 const Home = () => {
   return (
@@ -20,7 +27,7 @@ const Home = () => {
         backgroundBlendMode: "multiply, multiply",
       }}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader />}>
         <NavbarDesktop />
         <SpeedDialButton />
         <HeroSection />
