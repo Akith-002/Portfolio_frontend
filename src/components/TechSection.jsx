@@ -112,7 +112,7 @@ const TechSection = () => {
 
       {categories.map((category, index) => (
         <div key={index} className="w-full mt-14">
-          <h3 className="text-3xl text-yellow-500 text-center font-semibold mb-8">
+          <h3 className="text-3xl gradient-text text-center font-semibold mb-8">
             {category.title}
           </h3>
           <div className="flex flex-wrap justify-center items-center gap-[60px] lg:gap-[80px]">
