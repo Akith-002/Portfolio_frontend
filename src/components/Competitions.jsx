@@ -89,7 +89,7 @@ const Competitions = () => {
                   rel="noopener noreferrer"
                   className="text-yellow-500 underline mt-2 block"
                 >
-                  {competition.url}
+                  View More
                 </a>
               </div>
             </div>
