@@ -95,7 +95,7 @@ const NavbarDesktop = () => {
   }, []);
   return (
     <>
-      <Navbar className="sticky top-0 z-10 bg-black border-none h-max max-w-full rounded-none px-24 py-3">
+      <Navbar className="sticky top-0 z-10 bg-black border-none h-max max-w-full rounded-none px-10 py-3 md:px-24">
         <div className="flex items-center justify-between text-white">
           <Link to="signin">
             <Typography

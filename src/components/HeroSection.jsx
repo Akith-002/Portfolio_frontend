@@ -5,13 +5,13 @@ import myimg from "/assets/images/myImg.jpg";
 const HeroSection = () => {
   return (
     <section
-      className="w-full h-screen flex flex-col justify-center items-center"
+      className="w-full h-full flex flex-col justify-center items-center"
       style={{
         background:
           "linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%)",
       }}
     >
-      <div className="flex flex-col h-3/4 my-24 justify-evenly items-center text-white md:my-16">
+      <div className="flex flex-col h-3/4 my-24 gap-4 items-center text-white md:my-20">
         <div className="flex flex-col gap-4 items-center">
           <img
             src={myimg}
