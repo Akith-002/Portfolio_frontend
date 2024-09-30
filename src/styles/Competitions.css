@@ -15,7 +15,7 @@
   animation: fadeIn 0.8s ease-out forwards;
 }
 
-#competitions .view-more-link {
+.view-more-link {
   position: relative;
   display: inline-block;
   color: #f9d423;
@@ -29,7 +29,7 @@
     border-color 0.3s ease;
 }
 
-#competitions .view-more-link::after {
+.view-more-link::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -42,12 +42,12 @@
   transition: transform 0.25s ease-out;
 }
 
-#competitions .view-more-link:hover::after {
+.view-more-link:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
-#competitions .view-more-link:hover {
+.view-more-link:hover {
   background-color: #f9d423; /* Background color changes on hover */
   color: #000000; /* Text color changes to black on hover */
   border-color: #f9d423; /* Add a border color */
