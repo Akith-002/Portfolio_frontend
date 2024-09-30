@@ -57,7 +57,7 @@ const Competitions = () => {
       <h1 className="text-4xl font-bold text-center mb-10 text-white ">
         Competitions
       </h1>
-      <div className="flex flex-col gap-6 flex-wrap justify-center items-center px-4 sm:px-8">
+      <div className="flex flex-col gap-6 flex-wrap justify-center items-center px-5 sm:px-8">
         {loading ? (
           <p>Loading competitions...</p>
         ) : (
@@ -65,9 +65,9 @@ const Competitions = () => {
             <div
               ref={(el) => (competitionRefs.current[index] = el)} // Store reference to each competition div
               key={competition.id}
-              className={`card flex flex-col sm:flex-row gap-4 sm:gap-8 transform duration-1000 mb-8 w-full max-w-3xl p-4 bg-transparent shadow-[0_0_20px] shadow-yellow-500 rounded-lg hover:bg-gray-700 opacity-0 translate-y-10`} // Default state: hidden and slightly shifted down
+              className={`card flex flex-col sm:flex-row gap-4 sm:gap-8 transform duration-1000 mb-8 w-full max-w-3xl p-4 bg-transparent shadow-[0_0_14px_1px] shadow-yellow-500 rounded-lg hover:bg-gray-700 opacity-0 translate-y-10`} // Default state: hidden and slightly shifted down
             >
-              <div className="w-full sm:w-2/5 flex justify-center items-center object-cover overflow-hidden rounded-lg shadow-[0_0_8px] shadow-white">
+              <div className="w-full sm:w-2/5 flex justify-center items-center object-cover overflow-hidden rounded-lg shadow-[0_0_8px_1px] shadow-white">
                 {competition.image && (
                   <img
                     src={`${BackEnd_URL}${competition.image}`}
