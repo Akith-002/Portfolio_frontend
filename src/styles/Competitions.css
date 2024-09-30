@@ -10,7 +10,7 @@
   }
 }
 
-#competitions .animate-fadeIn {
+.animate-fadeIn {
   opacity: 1 !important;
   animation: fadeIn 0.8s ease-out forwards;
 }
