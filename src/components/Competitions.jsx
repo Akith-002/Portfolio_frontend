@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import "../styles/Competitions.css";
 
 const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
 
 const Competitions = () => {
   const [competitions, setCompetitions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [isVisible, setIsVisible] = useState(false); // State to track visibility
+  const competitionRefs = useRef([]); // Create refs for each competition
 
   // Fetch competitions from API
   useEffect(() => {
@@ -24,70 +24,71 @@ const Competitions = () => {
     fetchCompetitions();
   }, []);
 
-  // Handle scrolling to trigger animation
+  // Use Intersection Observer for scroll-triggered animations
   useEffect(() => {
-    const onScroll = () => {
-      const scrollPos = window.scrollY;
-      setScrollPosition(scrollPos);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fadeIn");
+          } else {
+            entry.target.classList.remove("animate-fadeIn");
+          }
+        });
+      },
+      { threshold: 0.2 } // Trigger animation when 20% of the element is visible
+    );
 
-      // Trigger animation when scrolling past 300px (adjust as needed)
-      if (scrollPos > 800) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
+    competitionRefs.current.forEach((ref) => {
+      if (ref) {
+        observer.observe(ref);
       }
-    };
-
-    window.addEventListener("scroll", onScroll);
+    });
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      competitionRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
     };
-  }, [scrollPosition]);
+  }, []);
 
   return (
     <section id="competitions" className="relative gradient-bg py-10">
       <h1 className="text-4xl font-bold text-center mb-10 text-white ">
         Competitions
       </h1>
-      <div className="flex flex-col gap-6 flex-wrap justify-center items-center">
+      <div className="flex flex-col gap-6 flex-wrap justify-center items-center px-4 sm:px-8">
         {loading ? (
           <p>Loading competitions...</p>
         ) : (
           competitions.map((competition, index) => (
             <div
               key={competition.id}
-              className={`card flex gap-8 transition-transform transform ${
-                isVisible
-                  ? `translate-x-0 opacity-100`
-                  : `${
-                      index % 2 === 0 ? "-translate-x-16" : "translate-x-16"
-                    } opacity-0`
-              } duration-4000
-              } mb-8 w-full max-w-3xl p-4 bg-transparent shadow-[0_0_20px] shadow-yellow-500 rounded-lg hover:bg-gray-700`}
-              style={{ transitionDelay: `${index * 500}ms` }} // Staggered effect
+              ref={(el) => (competitionRefs.current[index] = el)} // Store ref for each competition
+              className={`card flex flex-col sm:flex-row gap-4 sm:gap-8 transition-opacity transform opacity-0 mb-8 w-full max-w-3xl p-4 bg-transparent shadow-[0_0_20px] shadow-yellow-500 rounded-lg hover:bg-gray-700`}
             >
-              <div className="w-2/5 flex justify-center items-center object-cover overflow-hidden rounded-lg shadow-[0_0_8px] shadow-white">
+              <div className="w-full sm:w-2/5 flex justify-center items-center object-cover overflow-hidden rounded-lg shadow-[0_0_8px] shadow-white">
                 {competition.image && (
                   <img
                     src={`${BackEnd_URL}${competition.image}`}
                     loading="lazy"
                     alt={competition.title}
-                    className="h-full w-full object-cover rounded"
+                    className="h-48 w-full sm:h-full object-cover rounded"
                   />
                 )}
               </div>
-              <div className="w-3/5 p-2">
-                <h2 className="text-2xl font-semibold mb-4 underline">
+              <div className="w-full sm:w-3/5 p-2 text-center sm:text-left">
+                <h2 className="text-xl sm:text-2xl font-semibold mb-2 underline">
                   {competition.title}
                 </h2>
-
-                <p className="text-white">{competition.description}</p>
+                <p className="text-sm sm:text-base text-white">
+                  {competition.description}
+                </p>
                 <a
                   href={competition.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-yellow-500 underline mt-2 block"
+                  className="view-more-link text-yellow-500 font-semibold underline mt-2 block relative py-2 px-4 transition-all duration-300 ease-in-out"
                 >
                   View More
                 </a>
