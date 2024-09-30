@@ -15,11 +15,9 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isVisible, setIsVisible] = useState(false); // State to track visibility
-
   const [openProject, setOpenProject] = useState(null); // Track which project’s modal is open
 
   const handleOpen = (project) => setOpenProject(project);
-
   const handleClose = () => setOpenProject(null);
 
   // Fetch projects from the backend
@@ -33,7 +31,6 @@ const Projects = () => {
         console.error("Error fetching projects:", error);
       }
     };
-
     fetchProjects();
   }, []);
 
@@ -41,7 +38,7 @@ const Projects = () => {
     const onScroll = () => {
       const scrollPos = window.scrollY; // Get scroll position
       setScrollPosition(scrollPos);
-      if (scrollPos > 1580) {
+      if (scrollPos > 2650) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -57,15 +54,16 @@ const Projects = () => {
 
   return (
     <section
-      className="pb-8 pt-12 h-screen text-white flex flex-col gap-12 items-center"
+      className="pb-8 md:pb-12 pt-12 lg:pl-16 lg:pr-4 h-auto lg:h-full text-white flex flex-col gap-12 items-center"
       style={{
         background:
           "linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%)",
       }}
       id="projects"
     >
+      {/* Heading */}
       <h2
-        className={`text-5xl transition-transform duration-[900ms] ${
+        className={`text-4xl md:text-5xl font-bold transition-transform duration-[900ms] ${
           isVisible
             ? "transform scale-100 opacity-100"
             : "transform scale-0 opacity-0"
@@ -74,57 +72,61 @@ const Projects = () => {
         Projects
       </h2>
 
-      <div className="flex gap-8 justify-around w-5/6">
+      <div className="flex flex-col lg:flex-row gap-8 justify-around w-full px-4 lg:px-0">
+        {/* Project Image */}
         <div
-          className={`w-1/2 h-8/9 my-auto mx-4 rounded-lg overflow-hidden shadow-[0px_0px_20px_1px] shadow-gray-700 transition-transform duration-[1500ms] ${
+          className={`w-full lg:w-1/2 h-full transition-transform duration-[1500ms] ${
             isVisible
               ? "transform translate-x-0 opacity-100"
               : "transform -translate-x-40 opacity-0"
-          } `}
+          }`}
         >
-          <img
-            src={projImg2}
-            loading="lazy"
-            alt="projects"
-            className="h-full w-full object-cover"
-          />
+          <div className="h-[200px] md:h-[400px] lg:h-[500px] lg:my-10 rounded-lg overflow-hidden shadow-[0px_0px_14px_2px] shadow-yellow-500">
+            <img
+              src={projImg2}
+              loading="lazy"
+              alt="projects"
+              className="h-full w-full object-cover"
+            />
+          </div>
         </div>
-        <div className="w-1/2 h-full px-8">
+
+        {/* Project List */}
+        <div className="w-full lg:w-1/2 h-full px-4 lg:px-8 py-2">
           <ul className="flex flex-col">
             {projects.map((project) => (
               <li
                 key={project._id}
-                className="flex justify-between my-6 pb-6 px-6 border-b border-gray-700 h-14"
+                className="flex justify-between my-4 md:my-5 pb-6 border-b border-gray-700 h-auto"
               >
-                <div className="w-5/6 flex items-center">
+                <div className="w-6/7 flex items-center">
                   <h3
-                    className="text-2xl hover:text-yellow-500 hover:underline"
+                    className="text-xl md:text-2xl hover:text-yellow-500 hover:underline cursor-pointer"
                     onClick={() => handleOpen(project)}
                   >
                     {project.name}
                   </h3>
                 </div>
-                <div className="w-1/6 flex justify-center items-center">
+                <div className="w-1/7 flex justify-center items-center">
                   <ArrowUpRightIcon
-                    className="w-8 h-8 hover:text-yellow-500"
+                    className="w-6 h-6 md:w-8 md:h-8 hover:text-yellow-500 cursor-pointer"
                     onClick={() => handleOpen(project)}
-                    style={{
-                      strokeWidth: 2.5,
-                    }}
+                    style={{ strokeWidth: 2.5 }}
                   />
                 </div>
+
+                {/* Modal for project details */}
                 <Dialog
                   size="md"
                   open={!!openProject && openProject._id === project._id}
                   handler={handleClose}
-                  className="px-10 py-6"
+                  className="px-4 py-6"
                 >
-                  <DialogHeader className="font-bold text-blue-600 text-3xl underline">
+                  <DialogHeader className="font-bold text-blue-600 text-2xl md:text-3xl underline">
                     {openProject?.name}
                   </DialogHeader>
                   <DialogBody className="bg-gray-300 rounded-xl">
-                    <h1 className="mb-8 ml-4 w-8/9 text-gray-800">
-                      {" "}
+                    <h1 className="mb-4 text-gray-800">
                       {openProject?.description}
                     </h1>
                     <div className="bg-gray-100 rounded-xl px-5 py-3 text-black">
@@ -135,7 +137,7 @@ const Projects = () => {
                         </span>
                       </p>
                       <p>
-                        <span className="text-blue-500">Linkedin link :</span>{" "}
+                        <span className="text-blue-500">LinkedIn link : </span>
                         <span className="underline hover:text-gray-700">
                           {openProject?.linkedIn}
                         </span>

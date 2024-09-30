@@ -54,7 +54,7 @@ const Competitions = () => {
 
   return (
     <section id="competitions" className="relative gradient-bg py-10">
-      <h1 className="text-4xl font-bold text-center mb-10 text-white ">
+      <h1 className="text-4xl md:text-5xl font-bold text-center mb-10 text-white ">
         Competitions
       </h1>
       <div className="flex flex-col gap-6 flex-wrap justify-center items-center px-5 sm:px-8">

@@ -108,7 +108,9 @@ const TechSection = () => {
       className="flex flex-col items-center w-full py-12 bg-gradient-to-b from-gray-800 to-gray-600"
       id="tech"
     >
-      <h2 className="text-5xl text-white font-bold">Technologies</h2>
+      <h2 className="text-4xl md:text-5xl text-white font-bold">
+        Technologies
+      </h2>
 
       {categories.map((category, index) => (
         <div key={index} className="w-full mt-14">
