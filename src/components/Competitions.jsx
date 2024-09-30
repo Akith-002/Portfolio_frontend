@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../styles/Competitions.css";
+import "../styles/Tech.css";
 
 const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
 
@@ -88,7 +88,7 @@ const Competitions = () => {
                   href={competition.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="view-more-link text-yellow-500 font-semibold underline mt-2 block relative py-2 px-4 transition-all duration-300 ease-in-out"
+                  className="text-yellow-500 underline mt-2 block"
                 >
                   View More
                 </a>
