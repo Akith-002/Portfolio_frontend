@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import "../styles/Competitions.css";
 
 const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
 
 const Competitions = () => {
   const [competitions, setCompetitions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [isVisible, setIsVisible] = useState(false); // State to track visibility
+  const competitionRefs = useRef([]);
 
   // Fetch competitions from API
   useEffect(() => {
@@ -24,26 +24,33 @@ const Competitions = () => {
     fetchCompetitions();
   }, []);
 
-  // Handle scrolling to trigger animation
+  // Use IntersectionObserver to trigger animation
   useEffect(() => {
-    const onScroll = () => {
-      const scrollPos = window.scrollY;
-      setScrollPosition(scrollPos);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("appear");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-      // Trigger animation when scrolling past 300px (adjust as needed)
-      if (scrollPos > 800) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
+    competitionRefs.current.forEach((ref) => {
+      if (ref) {
+        observer.observe(ref);
       }
-    };
-
-    window.addEventListener("scroll", onScroll);
+    });
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      competitionRefs.current.forEach((ref) => {
+        if (ref) {
+          observer.unobserve(ref);
+        }
+      });
     };
-  }, [scrollPosition]);
+  }, [competitions]);
 
   return (
     <section id="competitions" className="relative gradient-bg py-10">
@@ -56,15 +63,9 @@ const Competitions = () => {
         ) : (
           competitions.map((competition, index) => (
             <div
+              ref={(el) => (competitionRefs.current[index] = el)} // Store reference to each competition div
               key={competition.id}
-              className={`card flex flex-col sm:flex-row gap-4 sm:gap-8 transition-transform transform ${
-                isVisible
-                  ? `translate-x-0 opacity-100`
-                  : `${
-                      index % 2 === 0 ? "-translate-x-16" : "translate-x-16"
-                    } opacity-0`
-              } duration-1000 mb-8 w-full max-w-3xl p-4 bg-transparent shadow-[0_0_20px] shadow-yellow-500 rounded-lg hover:bg-gray-700`}
-              style={{ transitionDelay: `${index * 500}ms` }} // Staggered effect
+              className={`card flex flex-col sm:flex-row gap-4 sm:gap-8 transform duration-1000 mb-8 w-full max-w-3xl p-4 bg-transparent shadow-[0_0_20px] shadow-yellow-500 rounded-lg hover:bg-gray-700 opacity-0 translate-y-10`} // Default state: hidden and slightly shifted down
             >
               <div className="w-full sm:w-2/5 flex justify-center items-center object-cover overflow-hidden rounded-lg shadow-[0_0_8px] shadow-white">
                 {competition.image && (
