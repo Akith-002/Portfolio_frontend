@@ -88,7 +88,7 @@ const Competitions = () => {
                   href={competition.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-yellow-500 underline mt-2 block"
+                  className="inline-block text-sm sm:text-base text-yellow-500 bg-transparent border border-yellow-500 py-2 px-4 rounded-lg transition-all duration-300 hover:bg-yellow-500 hover:text-black hover:shadow-lg mt-4"
                 >
                   View More
                 </a>
