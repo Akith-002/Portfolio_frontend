@@ -132,7 +132,7 @@ const Projects = () => {
                     <div className="bg-gray-800 rounded-xl px-5 py-3 text-black">
                       <p>
                         <span className="text-yellow-600">Github link : </span>
-                        <span className="underline text-white hover:text-gray-500">
+                        <span className="underline text-white hover:text-gray-500 break-words">
                           {openProject?.github}
                         </span>
                       </p>
@@ -140,7 +140,7 @@ const Projects = () => {
                         <span className="text-yellow-600">
                           LinkedIn link :{" "}
                         </span>
-                        <span className="underline text-white hover:text-gray-500">
+                        <span className="underline text-white hover:text-gray-500 break-words">
                           {openProject?.linkedIn}
                         </span>
                       </p>
