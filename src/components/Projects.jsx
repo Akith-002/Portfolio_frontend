@@ -120,25 +120,27 @@ const Projects = () => {
                   size="md"
                   open={!!openProject && openProject._id === project._id}
                   handler={handleClose}
-                  className="px-4 py-6"
+                  className="px-6 py-6 max-h-screen overflow-y-auto "
                 >
-                  <DialogHeader className="font-bold text-blue-600 text-2xl md:text-3xl underline">
+                  <DialogHeader className="font-bold text-yellow-600 text-2xl md:text-3xl underline">
                     {openProject?.name}
                   </DialogHeader>
-                  <DialogBody className="bg-gray-300 rounded-xl">
+                  <DialogBody className="bg-gray-400 rounded-xl">
                     <h1 className="mb-4 text-gray-800">
                       {openProject?.description}
                     </h1>
-                    <div className="bg-gray-100 rounded-xl px-5 py-3 text-black">
+                    <div className="bg-gray-800 rounded-xl px-5 py-3 text-black">
                       <p>
-                        <span className="text-blue-500">Github link : </span>
-                        <span className="underline hover:text-gray-700">
+                        <span className="text-yellow-600">Github link : </span>
+                        <span className="underline text-white hover:text-gray-500">
                           {openProject?.github}
                         </span>
                       </p>
                       <p>
-                        <span className="text-blue-500">LinkedIn link : </span>
-                        <span className="underline hover:text-gray-700">
+                        <span className="text-yellow-600">
+                          LinkedIn link :{" "}
+                        </span>
+                        <span className="underline text-white hover:text-gray-500">
                           {openProject?.linkedIn}
                         </span>
                       </p>
