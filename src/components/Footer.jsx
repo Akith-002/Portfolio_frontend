@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
 import bg from "/assets/images/footerBg.png";
+import { motion } from "framer-motion"; // Import Framer Motion for animation
 
 const userId = import.meta.env.VITE_EMAILJS_USER_ID;
 
@@ -58,11 +59,16 @@ const Footer = () => {
         boxShadow: "0 0 10px 2px rgba(0, 0, 0, 0.8)",
       }}
     >
-      <div className="container mx-auto px-4 ">
+      <div className="container mx-auto px-4">
         {/* Footer Links */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 px-4 md:px-8">
           {/*Quick links*/}
-          <div className="flex flex-col space-y-4 font-semibold ">
+          <motion.div
+            className="flex flex-col space-y-4 font-semibold"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <h3 className="text-xl">Quick Links</h3>
             <a href="#" className="hover:text-yellow-400 ml-2">
               Home
@@ -79,10 +85,15 @@ const Footer = () => {
             <a href="#blogs" className="hover:text-yellow-400 ml-2">
               Blogs
             </a>
-          </div>
+          </motion.div>
 
           {/* Social Media Links */}
-          <div className="flex flex-col space-y-4">
+          <motion.div
+            className="flex flex-col space-y-4"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <h3 className="text-xl font-semibold">Follow</h3>
             <div className="flex flex-col gap-4 font-semibold">
               <a
@@ -116,13 +127,18 @@ const Footer = () => {
                 YouTube
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact Me Section */}
-          <div className="flex flex-col space-y-4">
+          <motion.div
+            className="flex flex-col space-y-4"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <h3 className="text-xl font-semibold">Contact Me</h3>
             <form
-              className="flex flex-col space-y-4 ml-4"
+              className="flex flex-col space-y-4 ml-2"
               onSubmit={handleSubmit}
             >
               <input
@@ -158,11 +174,11 @@ const Footer = () => {
                 Send Message
               </button>
             </form>
-          </div>
+          </motion.div>
         </div>
 
         {/* Footer Bottom */}
-        <div className="flex justify-center items-center h-16 text-center mt-8 text-white border-t border-t-2 border-gray-800">
+        <div className="flex justify-center items-center h-16 text-center mt-8 text-white border-t border-gray-800">
           <p>&copy; {new Date().getFullYear()} AKiNZ. All rights reserved.</p>
         </div>
       </div>
