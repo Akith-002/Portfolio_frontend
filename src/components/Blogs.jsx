@@ -167,7 +167,7 @@ const Blogs = () => {
 
       {/* Modal */}
       {selectedBlog && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+        <div className="fixed inset-0 flex items-center justify-center mx-2 bg-gray-900 bg-opacity-50 z-50">
           <div className="bg-gray-200 p-6 sm:p-8 rounded-lg shadow-lg max-w-lg w-full relative">
             <button
               className="absolute top-3 right-3 w-8 h-8 bg-gray-700 rounded-md text-yellow-800 font-extrabold text-center hover:text-black"
@@ -175,7 +175,7 @@ const Blogs = () => {
             >
               X
             </button>
-            <h3 className="text-xl sm:text-2xl font-semibold mb-4">
+            <h3 className="w-8/9 text-xl sm:text-2xl font-semibold mb-4">
               {selectedBlog.title}
             </h3>
             {selectedBlog.image && (
