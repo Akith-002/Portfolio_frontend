@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ProjectsAdmin from "../components/ProjectsAdmin";
 import BlogsAdmin from "../components/BlogsAdmin";
 import CompetitionsAdmin from "../components/CompetitionsAdmin";
@@ -15,7 +15,7 @@ const AdminPage = () => {
 
   return (
     <div
-      className="flex flex-col items-center h-full min-h-screen bg-gray-100 p-6"
+      className="flex flex-col items-center h-full min-h-screen bg-gray-100 p-4 sm:p-6"
       style={{
         backgroundImage: `url(${bg1})`,
         backgroundSize: "cover",
@@ -23,16 +23,18 @@ const AdminPage = () => {
       }}
     >
       {/* Header */}
-      <h1 className="text-4xl font-bold mb-8">Welcome to the Admin Page</h1>
+      <h1 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 text-center">
+        Welcome to the Admin Page
+      </h1>
 
       {/* Tabs */}
-      <div className="flex space-x-4 mb-6">
+      <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
         <button
           className={`p-2 px-4 font-semibold ${
             activeTab === "projects"
               ? "bg-black text-yellow-500"
               : "bg-gray-800 text-white"
-          } rounded-md hover:bg-black hover:text-yellow-500`}
+          } rounded-md hover:bg-black hover:text-yellow-500 w-full sm:w-auto`}
           onClick={() => handleTabClick("projects")}
         >
           Projects
@@ -42,7 +44,7 @@ const AdminPage = () => {
             activeTab === "blogs"
               ? "bg-black text-yellow-500"
               : "bg-gray-800 text-white"
-          } rounded-md hover:bg-black hover:text-yellow-500`}
+          } rounded-md hover:bg-black hover:text-yellow-500 w-full sm:w-auto`}
           onClick={() => handleTabClick("blogs")}
         >
           Blogs
@@ -52,7 +54,7 @@ const AdminPage = () => {
             activeTab === "competitions"
               ? "bg-black text-yellow-500"
               : "bg-gray-800 text-white"
-          } rounded-md hover:bg-black hover:text-yellow-500`}
+          } rounded-md hover:bg-black hover:text-yellow-500 w-full sm:w-auto`}
           onClick={() => handleTabClick("competitions")}
         >
           Competitions
@@ -60,7 +62,7 @@ const AdminPage = () => {
       </div>
 
       {/* Content */}
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-full sm:max-w-4xl">
         {/* Projects Section */}
         {activeTab === "projects" && <ProjectsAdmin />}
 
