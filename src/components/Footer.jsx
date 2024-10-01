@@ -3,7 +3,8 @@ import emailjs from "emailjs-com";
 import bg from "/assets/images/footerBg.png";
 import { motion } from "framer-motion"; // Import Framer Motion for animation
 
-const userId = import.meta.env.VITE_EMAILJS_USER_ID;
+const userId = "const userId = import.meta.env.VITE_EMAILJS_USER_ID";
+// const userId = import.meta.env.VITE_EMAILJS_USER_ID;
 console.log("User ID: ", userId);
 
 const Footer = () => {
