@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import projImg2 from "/assets/images/projects_img2.jpg";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import {
@@ -16,6 +16,7 @@ const Projects = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isVisible, setIsVisible] = useState(false); // State to track visibility
   const [openProject, setOpenProject] = useState(null); // Track which project’s modal is open
+  const headingRef = useRef(null); // Ref for the "Projects" heading
 
   const handleOpen = (project) => setOpenProject(project);
   const handleClose = () => setOpenProject(null);
@@ -38,7 +39,7 @@ const Projects = () => {
     const onScroll = () => {
       const scrollPos = window.scrollY; // Get scroll position
       setScrollPosition(scrollPos);
-      if (scrollPos > 2650) {
+      if (scrollPos > 2700) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -52,6 +53,32 @@ const Projects = () => {
     };
   }, [scrollPosition]);
 
+  // IntersectionObserver for heading animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("heading-appear");
+          } else {
+            entry.target.classList.remove("heading-appear");
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (headingRef.current) {
+      observer.observe(headingRef.current);
+    }
+
+    return () => {
+      if (headingRef.current) {
+        observer.unobserve(headingRef.current);
+      }
+    };
+  }, []);
+
   return (
     <section
       className="pb-8 md:pb-12 pt-12 lg:pl-16 lg:pr-4 h-auto lg:h-full text-white flex flex-col gap-12 items-center"
@@ -63,11 +90,8 @@ const Projects = () => {
     >
       {/* Heading */}
       <h2
-        className={`text-4xl md:text-5xl font-bold transition-transform duration-[900ms] ${
-          isVisible
-            ? "transform scale-100 opacity-100"
-            : "transform scale-0 opacity-0"
-        }`}
+        ref={headingRef}
+        className="text-4xl md:text-5xl font-bold opacity-0 transform translate-y-10 duration-1000"
       >
         Projects
       </h2>
