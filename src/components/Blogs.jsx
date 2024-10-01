@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import "../styles/Blogs.css";
 
 const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
 
@@ -7,8 +8,8 @@ const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBlog, setSelectedBlog] = useState(null); // To manage modal content
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [isVisible, setIsVisible] = useState(false); // State to track visibility
+  const blogRefs = useRef([]); // To store refs of each blog card
+  const blogHeadingRef = useRef(null); // Ref for the "Blogs" heading
 
   // Fetch blogs from API
   useEffect(() => {
@@ -26,25 +27,59 @@ const Blogs = () => {
     fetchBlogs();
   }, []);
 
+  // Intersection Observer for appearing animation
   useEffect(() => {
-    const onScroll = () => {
-      const scrollPos = window.scrollY; // Get scroll position
-      setScrollPosition(scrollPos);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("blog-slide-in");
+          } else {
+            entry.target.classList.remove("blog-slide-in");
+          }
+        });
+      },
+      { threshold: 0.1 } // Trigger when 10% of the element is visible
+    );
 
-      // Trigger animation when scrolling past 2300px (adjust as needed)
-      if (scrollPos > 2300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener("scroll", onScroll);
+    blogRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      if (blogRefs.current) {
+        blogRefs.current.forEach((ref) => {
+          if (ref) observer.unobserve(ref);
+        });
+      }
     };
-  }, [scrollPosition]);
+  }, [blogs]);
+
+  // Intersection Observer for heading animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("heading-appear");
+          } else {
+            entry.target.classList.remove("heading-appear");
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (blogHeadingRef.current) {
+      observer.observe(blogHeadingRef.current);
+    }
+
+    return () => {
+      if (blogHeadingRef.current) {
+        observer.unobserve(blogHeadingRef.current);
+      }
+    };
+  }, []);
 
   // Listen for 'Escape' key to close modal
   useEffect(() => {
@@ -81,11 +116,8 @@ const Blogs = () => {
       className="h-auto px-4 sm:px-8 md:px-12 lg:px-24 pt-12 py-20 flex flex-col items-center bg-gray-600"
     >
       <h2
-        className={`text-4xl sm:text-5xl mb-12 transition-transform duration-[900ms] ${
-          isVisible
-            ? "transform scale-100 opacity-100"
-            : "transform scale-0 opacity-0"
-        }`}
+        ref={blogHeadingRef}
+        className="text-4xl sm:text-5xl mb-12 opacity-0 transform translate-y-10 transition-opacity transition-transform duration-500 ease-in-out"
       >
         Blogs
       </h2>
