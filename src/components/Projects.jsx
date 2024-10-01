@@ -98,13 +98,7 @@ const Projects = () => {
 
       <div className="flex flex-col lg:flex-row gap-8 justify-around w-full px-4 lg:px-0">
         {/* Project Image */}
-        <div
-          className={`w-full lg:w-1/2 h-full px-2 transition-transform duration-[1500ms] ${
-            isVisible
-              ? "transform translate-x-0 opacity-100"
-              : "transform -translate-x-40 opacity-0"
-          }`}
-        >
+        <div className="w-full lg:w-1/2 h-full px-2">
           <div className="h-[200px] md:h-[400px] lg:h-[500px] lg:my-10 rounded-lg overflow-hidden shadow-[0px_0px_14px_2px] shadow-yellow-500">
             <img
               src={projImg2}
