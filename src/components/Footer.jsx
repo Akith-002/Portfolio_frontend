@@ -4,6 +4,7 @@ import bg from "/assets/images/footerBg.png";
 import { motion } from "framer-motion"; // Import Framer Motion for animation
 
 const userId = import.meta.env.VITE_EMAILJS_USER_ID;
+console.log("User ID: ", userId);
 
 const Footer = () => {
   const [formData, setFormData] = useState({
