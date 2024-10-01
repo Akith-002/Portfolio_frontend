@@ -144,7 +144,7 @@ const Projects = () => {
                     {openProject?.name}
                   </DialogHeader>
                   <DialogBody className="bg-gray-400 rounded-xl">
-                    <h1 className="mb-4 text-gray-800">
+                    <h1 className="mb-4 text-black">
                       {openProject?.description}
                     </h1>
                     <div className="bg-gray-800 rounded-xl px-5 py-3 text-black">
