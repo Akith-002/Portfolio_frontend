@@ -7,6 +7,7 @@ const Competitions = () => {
   const [competitions, setCompetitions] = useState([]);
   const [loading, setLoading] = useState(true);
   const competitionRefs = useRef([]);
+  const headingRef = useRef(null); // Create a ref for the heading
 
   // Fetch competitions from API
   useEffect(() => {
@@ -54,9 +55,38 @@ const Competitions = () => {
     };
   }, [competitions]);
 
+  // Use IntersectionObserver to animate heading
+  useEffect(() => {
+    const headingObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("heading-appear");
+          } else {
+            entry.target.classList.remove("heading-appear");
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (headingRef.current) {
+      headingObserver.observe(headingRef.current);
+    }
+
+    return () => {
+      if (headingRef.current) {
+        headingObserver.unobserve(headingRef.current);
+      }
+    };
+  }, []);
+
   return (
     <section id="competitions" className="relative gradient-bg py-10">
-      <h1 className="text-4xl md:text-5xl font-bold text-center mb-10 text-white ">
+      <h1
+        ref={headingRef}
+        className="text-4xl md:text-5xl font-bold text-center mb-10 text-white opacity-0 transform translate-y-10 duration-1000"
+      >
         Competitions
       </h1>
       <div className="flex flex-col gap-6 flex-wrap justify-center items-center px-5 sm:px-8">
