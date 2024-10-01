@@ -22,11 +22,6 @@
   transition: opacity 1s ease, transform 1s ease;
 }
 
-h1 {
-  opacity: 0;
-  transform: translateY(10px);
-}
-
 /* Card appearance animation */
 .appear {
   opacity: 1;

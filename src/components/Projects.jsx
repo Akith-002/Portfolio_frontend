@@ -143,11 +143,11 @@ const Projects = () => {
                   <DialogHeader className="font-bold text-yellow-600 text-2xl md:text-3xl underline">
                     {openProject?.name}
                   </DialogHeader>
-                  <DialogBody className="bg-gray-400 rounded-xl">
-                    <h1 className="mb-4 text-black">
+                  <DialogBody className="bg-gray-500  rounded-xl">
+                    <h1 className="mb-4 text-gray-900">
                       {openProject?.description}
                     </h1>
-                    <div className="bg-gray-800 rounded-xl px-5 py-3 text-black">
+                    <div className="bg-gray-600 rounded-xl px-5 py-3 text-black">
                       <p>
                         <span className="text-yellow-600">Github link : </span>
                         <span className="underline text-white hover:text-gray-500 break-words">
