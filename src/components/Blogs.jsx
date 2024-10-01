@@ -123,10 +123,11 @@ const Blogs = () => {
       </h2>
       {loading ? <div>Loading Blogs...</div> : null}
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-6 px-4">
-        {blogs.map((blog) => (
+        {blogs.map((blog, index) => (
           <div
+            ref={(el) => (blogRefs.current[index] = el)}
             key={blog._id}
-            className="bg-white h-[400px] md:h-[435px] rounded-lg shadow-lg p-4 sm:p-6 transition-transform duration-300 transform hover:scale-105 flex flex-col justify-between"
+            className="flex flex-col justify-between bg-white h-[400px] md:h-[435px] rounded-lg shadow-lg p-4 sm:p-6 opacity-0 transform translate-y-10 transition-opacity transition-transform duration-500 ease-in-out hover:scale-105 "
           >
             <div className="mb-4 overflow-hidden rounded-md">
               {/* Display the uploaded image */}
