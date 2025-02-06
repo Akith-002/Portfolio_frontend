@@ -48,7 +48,7 @@ const HeroSection = () => {
           </a>
 
           <a
-            href="https://drive.google.com/file/d/1OVjt5HWK1U9gMlqIVUoUo6mTtLVX7ZLa/view?usp=sharing"
+            href="https://drive.google.com/file/d/1LEiRY7Ergg4TxTyUBtmcrL7mzSAlGhED/view?usp=sharing"
             target="_blank"
           >
             <Button className="flex items-center px-7 gap-2 md:text-md  bg-black text-yellow-500 rounded-full animate-slidein opacity-0 [--slidein-delay:700ms] hover:shadow-[0_0_2px_2px] hover:shadow-yellow-400">
