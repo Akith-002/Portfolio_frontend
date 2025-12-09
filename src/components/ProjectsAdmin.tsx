@@ -3,8 +3,22 @@ import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
 
+interface Project {
+  _id: string;
+  name: string;
+  description: string;
+  linkedIn?: string;
+  github?: string;
+}
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
+
 // Modal Component
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center shadow-lg">
@@ -21,10 +35,9 @@ const Modal = ({ isOpen, onClose, children }) => {
   );
 };
 
-const ProjectsAdmin = () => {
-  const [projects, setProjects] = useState([]);
+const ProjectsAdmin: React.FC = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [projectLoading, setProjectLoading] = useState(true);
-  const [updateProject, setUpdateProject] = useState(null);
 
   // States for modals
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -41,7 +54,7 @@ const ProjectsAdmin = () => {
   });
 
   // Selected Project State
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [deleteId, setDeleteId] = useState("");
 
   // Fetch projects from the backend
@@ -61,7 +74,7 @@ const ProjectsAdmin = () => {
   }, []);
 
   // Create new project
-  const handleCreateProject = async (e) => {
+  const handleCreateProject = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await fetch(`${BackEnd_URL}/projects`, {
@@ -81,8 +94,9 @@ const ProjectsAdmin = () => {
   };
 
   // Update existing project
-  const handleUpdateProject = async (e) => {
+  const handleUpdateProject = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!selectedProject) return;
     try {
       const response = await fetch(
         `${BackEnd_URL}/projects/${selectedProject._id}`,
@@ -98,7 +112,6 @@ const ProjectsAdmin = () => {
       setProjects(
         projects.map((proj) => (proj._id === data._id ? data : proj))
       );
-      setUpdateProject(null);
       setIsEditModalOpen(false);
     } catch (error) {
       console.error("Error updating project:", error);
@@ -106,7 +119,7 @@ const ProjectsAdmin = () => {
   };
 
   // Delete a project
-  const handleDeleteProject = async (e) => {
+  const handleDeleteProject = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await fetch(`${BackEnd_URL}/projects/${deleteId}`, {
@@ -246,9 +259,11 @@ const ProjectsAdmin = () => {
           <button
             className="bg-red-500 w-1/3 text-white py-2 px-4 rounded hover:text-black hover:shadow-md hover:shadow-red-400"
             onClick={() => {
-              setDeleteId(selectedProject._id);
-              setIsDeleteModalOpen(true);
-              setIsViewModalOpen(false);
+              if (selectedProject) {
+                setDeleteId(selectedProject._id);
+                setIsDeleteModalOpen(true);
+                setIsViewModalOpen(false);
+              }
             }}
           >
             Delete
@@ -262,21 +277,26 @@ const ProjectsAdmin = () => {
         <form onSubmit={handleUpdateProject}>
           <input
             type="text"
-            value={selectedProject?.name}
+            value={selectedProject?.name || ""}
             onChange={(e) =>
-              setSelectedProject({ ...selectedProject, name: e.target.value })
+              setSelectedProject(
+                selectedProject
+                  ? { ...selectedProject, name: e.target.value }
+                  : null
+              )
             }
             placeholder="Project Name"
             className="w-full p-2 mb-4 border border-gray-400 rounded-md focus:outline-none focus:shadow-md"
             required
           />
           <textarea
-            value={selectedProject?.description}
+            value={selectedProject?.description || ""}
             onChange={(e) =>
-              setSelectedProject({
-                ...selectedProject,
-                description: e.target.value,
-              })
+              setSelectedProject(
+                selectedProject
+                  ? { ...selectedProject, description: e.target.value }
+                  : null
+              )
             }
             placeholder="Project Description"
             className="w-full h-52 p-2 mb-4 border border-gray-400 rounded-md focus:outline-none focus:shadow-md"
@@ -284,24 +304,26 @@ const ProjectsAdmin = () => {
           />
           <input
             type="text"
-            value={selectedProject?.linkedIn}
+            value={selectedProject?.linkedIn || ""}
             onChange={(e) =>
-              setSelectedProject({
-                ...selectedProject,
-                linkedIn: e.target.value,
-              })
+              setSelectedProject(
+                selectedProject
+                  ? { ...selectedProject, linkedIn: e.target.value }
+                  : null
+              )
             }
             placeholder="LinkedIn Link"
             className="w-full p-2 mb-4 border border-gray-400 rounded-md focus:outline-none focus:shadow-md"
           />
           <input
             type="text"
-            value={selectedProject?.github}
+            value={selectedProject?.github || ""}
             onChange={(e) =>
-              setSelectedProject({
-                ...selectedProject,
-                github: e.target.value,
-              })
+              setSelectedProject(
+                selectedProject
+                  ? { ...selectedProject, github: e.target.value }
+                  : null
+              )
             }
             placeholder="Github Link"
             className="w-full p-2 mb-4 border border-gray-400 rounded-md focus:outline-none focus:shadow-md"

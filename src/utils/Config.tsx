@@ -1,12 +1,11 @@
-// Config starter code
 import { createChatBotMessage } from "react-chatbot-kit";
-import { useState } from "react";
-import BotAvatar from "../components/BotAvatar";
+import BotAvatar from "@/components/BotAvatar";
 
 const config = {
   initialMessages: [
     createChatBotMessage(
-      `Hi👋, I can answer questions about Akith Chandinu😎 and my portfolio❤️. Ask away!`
+      `Hi👋, I can answer questions about Akith Chandinu😎 and my portfolio❤️. Ask away!`,
+      {}
     ),
   ],
   customComponents: {
@@ -25,8 +24,12 @@ const config = {
         Akith's AI Chatbot💻
       </div>
     ),
-    botAvatar: (props) => <BotAvatar {...props} />,
+    botAvatar: (props: any) => <BotAvatar {...props} />,
   },
+  botName: "Akith's Bot",
+  customStyles: {},
+  state: {},
+  widgets: [],
 };
 
 export default config;

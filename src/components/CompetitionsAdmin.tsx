@@ -3,8 +3,31 @@ import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
 
+interface Competition {
+  _id: string;
+  title: string;
+  description: string;
+  url?: string;
+  image?: string;
+}
+
+interface UpdateCompetition {
+  id: string;
+  title: string;
+  description: string;
+  url: string;
+  image: string | null;
+  imageFile?: File | null;
+}
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
+
 // Modal Component
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -21,25 +44,28 @@ const Modal = ({ isOpen, onClose, children }) => {
   );
 };
 
-const BlogsAdmin = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [blogLoading, setBlogLoading] = useState(true);
-  const [newBlog, setNewBlog] = useState({
+const CompetitionsAdmin: React.FC = () => {
+  const [competitions, setCompetitions] = useState<Competition[]>([]);
+  const [competitionLoading, setCompetitionLoading] = useState(true);
+  const [newCompetition, setNewCompetition] = useState({
     title: "",
-    content: "",
+    description: "",
     url: "",
     image: "",
   });
-  const [imageFile, setImageFile] = useState(null); // New state to store the selected image
-  const [updateBlog, setUpdateBlog] = useState({
-    id: "",
-    title: "",
-    content: "",
-    image: null,
-    url: "",
-  });
-  const [deleteBlogId, setDeleteBlogId] = useState("");
-  const [selectedBlog, setSelectedBlog] = useState(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [updatecompetition, setUpdateCompetition] = useState<UpdateCompetition>(
+    {
+      id: "",
+      title: "",
+      description: "",
+      url: "",
+      image: null,
+    }
+  );
+  const [deleteCompetitionId, setDeleteCompetitionId] = useState("");
+  const [selectedCompetition, setSelectedCompetition] =
+    useState<Competition | null>(null);
 
   // Modal States
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -47,124 +73,145 @@ const BlogsAdmin = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  // Fetch blogs from API
+  // Fetch competitions
   useEffect(() => {
-    const fetchBlogs = async () => {
+    const fetchCompetitions = async () => {
       try {
-        const response = await fetch(`${BackEnd_URL}/blogs`);
+        const response = await fetch(`${BackEnd_URL}/competitions`);
         const data = await response.json();
-        setBlogs(data);
-        setBlogLoading(false);
+        setCompetitions(data);
+        setCompetitionLoading(false);
       } catch (error) {
-        console.error("Error fetching blogs:", error);
+        console.error("Error fetching competitions:", error);
       }
     };
 
-    fetchBlogs();
+    fetchCompetitions();
   }, []);
 
-  // Create a new blog
-  const createBlog = async (e) => {
+  // Create a new competition
+  const createCompetition = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("title", newBlog.title);
-    formData.append("content", newBlog.content);
-    formData.append("image", imageFile); // Append the image file to the form data
-    formData.append("url", newBlog.url); // Append the url to the form data
+    formData.append("title", newCompetition.title);
+    formData.append("description", newCompetition.description);
+    formData.append("url", newCompetition.url);
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
 
     try {
-      const response = await fetch(`${BackEnd_URL}/blogs`, {
+      const response = await fetch(`${BackEnd_URL}/competitions`, {
         method: "POST",
-        body: formData, // Send form data instead of JSON
+        body: formData,
       });
 
       if (!response.ok) {
-        throw new Error("Failed to create blog");
+        throw new Error("Failed to create competition");
       }
 
-      const createdBlog = await response.json();
-      setBlogs((prevBlogs) => [...prevBlogs, createdBlog]);
-      setNewBlog({ title: "", content: "", url: "", image: "" });
-      setImageFile(null); // Clear the image state
-      setIsCreateModalOpen(false); // Close the modal
+      const createdCompetition = await response.json();
+      setCompetitions((prevCompetitions) => [
+        ...prevCompetitions,
+        createdCompetition,
+      ]);
+      setNewCompetition({ title: "", description: "", url: "", image: "" });
+      setImageFile(null);
+      setIsCreateModalOpen(false);
     } catch (error) {
-      console.error("Error creating blog:", error);
+      console.error("Error creating competition:", error);
     }
   };
 
-  // Update a blog
-  const handleUpdateBlog = async (e) => {
+  // Update a competition
+  const handleUpdateCompetition = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!updateBlog.id) {
-      console.error("Please select a blog to update");
+    if (!updatecompetition.id) {
+      console.error("Please select a competition to update");
       return;
     }
 
     const formData = new FormData();
-    formData.append("title", updateBlog.title);
-    formData.append("content", updateBlog.content);
-    formData.append("url", updateBlog.url); // Correct url field
-    if (updateBlog.imageFile) {
-      formData.append("image", updateBlog.imageFile); // Correct image field
+    formData.append("title", updatecompetition.title);
+    formData.append("description", updatecompetition.description);
+    formData.append("url", updatecompetition.url);
+    if (updatecompetition.imageFile) {
+      formData.append("image", updatecompetition.imageFile);
     }
 
     try {
-      const response = await fetch(`${BackEnd_URL}/blogs/${updateBlog.id}`, {
-        method: "PATCH",
-        body: formData, // Send form data instead of JSON
-      });
+      const response = await fetch(
+        `${BackEnd_URL}/competitions/${updatecompetition.id}`,
+        {
+          method: "PATCH",
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
-        throw new Error("Failed to update blog");
+        throw new Error("Failed to update competition");
       }
 
-      const updatedBlog = await response.json();
-      setBlogs((prevBlogs) =>
-        prevBlogs.map((blog) =>
-          blog._id === updatedBlog._id ? updatedBlog : blog
+      const updatedCompetition = await response.json();
+      setCompetitions((prevCompetitions) =>
+        prevCompetitions.map((competition) =>
+          competition._id === updatedCompetition._id
+            ? updatedCompetition
+            : competition
         )
       );
-      setUpdateBlog({ id: "", title: "", content: "", url: "" });
-      setImageFile(null); // Clear the image state
-      setIsEditModalOpen(false); // Close the modal
+      setUpdateCompetition({
+        id: "",
+        title: "",
+        description: "",
+        url: "",
+        image: null,
+      });
+      setImageFile(null);
+      setIsEditModalOpen(false);
     } catch (error) {
-      console.error("Error updating blog:", error);
+      console.error("Error updating competition:", error);
     }
   };
 
-  // Delete a blog
-  const handleDeleteBlog = async (e) => {
+  // Delete a competition
+  const handleDeleteCompetition = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!deleteBlogId) {
-      console.error("Please select a blog to delete");
+    if (!deleteCompetitionId) {
+      console.error("Please select a competition to delete");
       return;
     }
 
     try {
-      const response = await fetch(`${BackEnd_URL}/blogs/${deleteBlogId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${BackEnd_URL}/competitions/${deleteCompetitionId}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (!response.ok) {
-        throw new Error("Failed to delete blog");
+        throw new Error("Failed to delete competition");
       }
 
-      setBlogs((prevBlogs) =>
-        prevBlogs.filter((blog) => blog._id !== deleteBlogId)
+      setCompetitions((prevCompetitions) =>
+        prevCompetitions.filter(
+          (competition) => competition._id !== deleteCompetitionId
+        )
       );
-      setDeleteBlogId("");
-      setIsDeleteModalOpen(false); // Close the modal
+      setDeleteCompetitionId("");
+      setIsDeleteModalOpen(false);
     } catch (error) {
-      console.error("Error deleting blog:", error);
+      console.error("Error deleting competition:", error);
     }
   };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <div className="flex justify-between items-center mb-6 px-2">
-        <h2 className="text-2xl font-bold ">Blogs</h2>
+        <h2 className="text-2xl font-bold ">Competitions</h2>
         <div
           className="w-32 h-10 rounded-md bg-gray-500 flex justify-center items-center hover:text-yellow-500 hover:bg-gray-700"
           onClick={() => setIsCreateModalOpen(true)}
@@ -175,62 +222,67 @@ const BlogsAdmin = () => {
       </div>
 
       <ul className="space-y-4">
-        {blogLoading ? <span>Loading Blogs...</span> : null}
-        {blogs.map((blog) => (
-          <li key={blog._id} className="bg-gray-200 p-4 rounded-md">
+        {competitionLoading && <p>Loading competitions...</p>}
+        {competitions.map((competition) => (
+          <li key={competition._id} className="bg-gray-200 p-4 rounded-md">
             <h3
               className="text-xl font-semibold hover:underline"
               onClick={() => {
-                setSelectedBlog(blog);
+                setSelectedCompetition(competition);
                 setIsViewModalOpen(true);
               }}
             >
-              {blog.title}
+              {competition.title}
             </h3>
-            <p>{blog.content.slice(0, 100)}...</p>
+            <p>{competition.description.slice(0, 100)}..</p>
           </li>
         ))}
       </ul>
 
-      {/* Create Blog Modal */}
+      {/* Create Competition Modal */}
       <Modal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
       >
-        <form onSubmit={createBlog}>
-          <h3 className="text-2xl font-bold mb-4">Create New Blog</h3>
+        <form onSubmit={createCompetition}>
+          <h3 className="text-2xl font-bold mb-4">Create New Competition</h3>
           <input
             type="text"
             placeholder="Title"
-            value={newBlog.title}
-            onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}
+            value={newCompetition.title}
+            onChange={(e) =>
+              setNewCompetition({ ...newCompetition, title: e.target.value })
+            }
             className="w-full p-2 mb-4 border border-gray-400 rounded-md focus:outline-none focus:shadow-md"
           />
           <textarea
-            placeholder="Content"
-            value={newBlog.content}
+            placeholder="Description"
+            value={newCompetition.description}
             onChange={(e) =>
-              setNewBlog({ ...newBlog, content: e.target.value })
+              setNewCompetition({
+                ...newCompetition,
+                description: e.target.value,
+              })
             }
             className="w-full p-2 mb-4 border border-gray-400 rounded-md focus:outline-none focus:shadow-md"
           />
           <input
             type="text"
             placeholder="URL"
-            value={newBlog.url}
-            onChange={(e) => setNewBlog({ ...newBlog, url: e.target.value })}
+            value={newCompetition.url}
+            onChange={(e) =>
+              setNewCompetition({ ...newCompetition, url: e.target.value })
+            }
             className="w-full p-2 mb-4 border border-gray-400 rounded-md focus:outline-none focus:shadow-md"
           />
           <div className="flex items-center gap-4 w-full mb-4 ml-2">
-            {/* Hidden file input */}
             <input
               id="file-input"
               type="file"
-              onChange={(e) => setImageFile(e.target.files[0])}
+              onChange={(e) => setImageFile(e.target.files?.[0] || null)}
               className="hidden"
             />
 
-            {/* Custom styled button */}
             <label
               htmlFor="file-input"
               className="bg-blue-500 text-white py-2 px-4 rounded cursor-pointer hover:bg-blue-600"
@@ -245,50 +297,50 @@ const BlogsAdmin = () => {
               type="submit"
               className="bg-black text-white w-full p-2 rounded hover:text-yellow-500 hover:shadow-md hover:shadow-yellow-400"
             >
-              Create Blog
+              Create Competition
             </button>
           </div>
         </form>
       </Modal>
 
-      {/* View Blog Modal */}
+      {/* View Competition Modal */}
       <Modal isOpen={isViewModalOpen} onClose={() => setIsViewModalOpen(false)}>
-        {selectedBlog && (
+        {selectedCompetition && (
           <>
             <div>
-              <h1 className="text-2xl w-5/6 font-bold mb-4">
-                {selectedBlog.title}
-                {selectedBlog.url && (
+              <h1 className="text-2xl font-bold mb-4">
+                {selectedCompetition.title}
+                {selectedCompetition.url && (
                   <a
-                    href={selectedBlog.url}
+                    href={selectedCompetition.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-gray-400 text-black px-2 py-1 ml-4 text-xs rounded rounded-lg hover:underline"
                   >
-                    Visit Blog
+                    Visit Website
                   </a>
                 )}
               </h1>
             </div>
-            {selectedBlog.image && (
+            {selectedCompetition.image && (
               <img
-                src={`${BackEnd_URL}${selectedBlog.image}`}
+                src={`${BackEnd_URL}${selectedCompetition.image}`}
                 loading="lazy"
-                alt={selectedBlog.title}
+                alt={selectedCompetition.title}
                 className="w-full h-40 object-cover rounded-md mb-4"
               />
             )}
-            <p className="mb-4">{selectedBlog.content}</p>
+            <p className="mb-4">{selectedCompetition.description}</p>
 
             <div className="flex justify-evenly items-center pt-4">
               <button
                 onClick={() => {
-                  setUpdateBlog({
-                    id: selectedBlog._id,
-                    title: selectedBlog.title,
-                    content: selectedBlog.content,
-                    url: selectedBlog.url,
-                    image: selectedBlog.image,
+                  setUpdateCompetition({
+                    id: selectedCompetition._id,
+                    title: selectedCompetition.title,
+                    description: selectedCompetition.description,
+                    url: selectedCompetition.url || "",
+                    image: selectedCompetition.image || null,
                   });
                   setIsEditModalOpen(true);
                   setIsViewModalOpen(false);
@@ -299,7 +351,7 @@ const BlogsAdmin = () => {
               </button>
               <button
                 onClick={() => {
-                  setDeleteBlogId(selectedBlog._id);
+                  setDeleteCompetitionId(selectedCompetition._id);
                   setIsDeleteModalOpen(true);
                   setIsViewModalOpen(false);
                 }}
@@ -312,53 +364,61 @@ const BlogsAdmin = () => {
         )}
       </Modal>
 
-      {/* Edit Blog Modal */}
+      {/* Edit Competition Modal */}
       <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)}>
-        <h3 className="text-2xl font-bold mb-4">Edit Blog</h3>
-        <form onSubmit={handleUpdateBlog}>
+        <h3 className="text-2xl font-bold mb-4">Edit Competition</h3>
+        <form onSubmit={handleUpdateCompetition}>
           <input
             type="text"
             placeholder="Title"
-            value={updateBlog.title}
+            value={updatecompetition.title}
             onChange={(e) =>
-              setUpdateBlog({ ...updateBlog, title: e.target.value })
+              setUpdateCompetition({
+                ...updatecompetition,
+                title: e.target.value,
+              })
             }
             className="w-full p-2 mb-4 border border-gray-400 rounded-md focus:outline-none focus:shadow-md"
             required
           />
           <textarea
-            placeholder="Content"
-            value={updateBlog.content}
+            placeholder="Description"
+            value={updatecompetition.description}
             onChange={(e) =>
-              setUpdateBlog({ ...updateBlog, content: e.target.value })
+              setUpdateCompetition({
+                ...updatecompetition,
+                description: e.target.value,
+              })
             }
             className="w-full h-52 p-2 mb-4 border border-gray-400 rounded-md focus:outline-none focus:shadow-md"
-            required
           />
 
           <input
             type="text"
             placeholder="URL"
-            value={updateBlog.url}
+            value={updatecompetition.url}
             onChange={(e) =>
-              setUpdateBlog({ ...updateBlog, url: e.target.value })
+              setUpdateCompetition({
+                ...updatecompetition,
+                url: e.target.value,
+              })
             }
             className="w-full p-2 mb-4 border border-gray-400 rounded-md focus:outline-none focus:shadow-md"
-            required
           />
 
           <div className="flex items-center gap-4 w-full mb-4 ml-2">
-            {/* Hidden file input */}
             <input
               id="file-input"
               type="file"
               onChange={(e) =>
-                setUpdateBlog({ ...updateBlog, imageFile: e.target.files[0] })
+                setUpdateCompetition({
+                  ...updatecompetition,
+                  imageFile: e.target.files?.[0] || null,
+                })
               }
               className="hidden"
             />
 
-            {/* Custom styled button */}
             <label
               htmlFor="file-input"
               className="bg-blue-500 text-white py-2 px-4 rounded cursor-pointer hover:bg-blue-600"
@@ -366,8 +426,8 @@ const BlogsAdmin = () => {
               Choose File
             </label>
 
-            {updateBlog.image && (
-              <p className="">Selected File: {updateBlog.image}</p>
+            {updatecompetition.image && (
+              <p className="">Selected File: {updatecompetition.image}</p>
             )}
           </div>
 
@@ -387,12 +447,12 @@ const BlogsAdmin = () => {
       >
         <h3 className="text-xl font-bold mb-4">Are you sure?</h3>
         <p className="mx-4 text-center">
-          Do you really want to delete this project? This action cannot be
+          Do you really want to delete this competition? This process cannot be
           undone.
         </p>
         <div className="mt-4 flex justify-evenly">
           <button
-            onClick={handleDeleteBlog}
+            onClick={handleDeleteCompetition}
             className="bg-red-500 text-white w-1/3 py-2 px-4 rounded hover:shadow hover:shadow-red-500 hover:text-black"
           >
             Yes, Delete
@@ -409,4 +469,4 @@ const BlogsAdmin = () => {
   );
 };
 
-export default BlogsAdmin;
+export default CompetitionsAdmin;

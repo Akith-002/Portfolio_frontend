@@ -4,9 +4,9 @@ import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/outline";
 import "react-chatbot-kit/build/main.css";
 import "./bot.css";
 
-import config from "../utils/Config.jsx";
-import actionProvider from "../utils/ActionProvider.jsx";
-import messageParser from "../utils/MessageParser.js";
+import config from "@/utils/Config";
+import actionProvider from "@/utils/ActionProvider";
+import messageParser from "@/utils/MessageParser";
 
 const SpeedDialButton: React.FC = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
