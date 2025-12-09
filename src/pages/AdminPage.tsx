@@ -4,12 +4,12 @@ import BlogsAdmin from "../components/BlogsAdmin";
 import CompetitionsAdmin from "../components/CompetitionsAdmin";
 import bg1 from "/assets/images/bg1.png";
 
-const AdminPage = () => {
-  // State to control which section is active
-  const [activeTab, setActiveTab] = useState("projects");
+type TabType = "projects" | "blogs" | "competitions";
 
-  // Function to handle tab switching
-  const handleTabClick = (tab) => {
+const AdminPage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<TabType>("projects");
+
+  const handleTabClick = (tab: TabType) => {
     setActiveTab(tab);
   };
 
@@ -63,13 +63,8 @@ const AdminPage = () => {
 
       {/* Content */}
       <div className="w-full max-w-full sm:max-w-4xl">
-        {/* Projects Section */}
         {activeTab === "projects" && <ProjectsAdmin />}
-
-        {/* Blogs Section */}
         {activeTab === "blogs" && <BlogsAdmin />}
-
-        {/* Competitions Section */}
         {activeTab === "competitions" && <CompetitionsAdmin />}
       </div>
     </div>

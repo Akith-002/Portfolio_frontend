@@ -11,9 +11,10 @@ import { Link } from "react-router-dom";
 function NavList() {
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+      {/* @ts-ignore - material-tailwind types */}
       <Typography
         as="li"
-        variant="large"
+        variant="paragraph"
         color="blue-gray"
         className="p-1 font-medium text-white"
       >
@@ -24,9 +25,10 @@ function NavList() {
           Home
         </a>
       </Typography>
+      {/* @ts-ignore - material-tailwind types */}
       <Typography
         as="li"
-        variant="large"
+        variant="paragraph"
         color="blue-gray"
         className="p-1 font-medium text-white"
       >
@@ -37,9 +39,10 @@ function NavList() {
           Tech
         </a>
       </Typography>
+      {/* @ts-ignore - material-tailwind types */}
       <Typography
         as="li"
-        variant="large"
+        variant="paragraph"
         color="blue-gray"
         className="p-1 font-medium text-white"
       >
@@ -50,9 +53,10 @@ function NavList() {
           Competitions
         </a>
       </Typography>
+      {/* @ts-ignore - material-tailwind types */}
       <Typography
         as="li"
-        variant="large"
+        variant="paragraph"
         color="blue-gray"
         className="p-1 font-medium text-white"
       >
@@ -63,9 +67,10 @@ function NavList() {
           Projects
         </a>
       </Typography>
+      {/* @ts-ignore - material-tailwind types */}
       <Typography
         as="li"
-        variant="large"
+        variant="paragraph"
         color="blue-gray"
         className="p-1 font-medium text-white"
       >
@@ -80,7 +85,7 @@ function NavList() {
   );
 }
 
-const NavbarDesktop = () => {
+const NavbarDesktop: React.FC = () => {
   const [openNav, setOpenNav] = React.useState(false);
 
   const handleWindowResize = () =>
@@ -93,15 +98,18 @@ const NavbarDesktop = () => {
       window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
+
   return (
     <>
+      {/* @ts-ignore - material-tailwind types */}
       <Navbar className="fixed top-0 z-10 bg-black border-none h-max max-w-full rounded-none px-10 py-3 md:px-24">
         <div className="flex items-center justify-between text-white">
           <Link to="signin">
+            {/* @ts-ignore - material-tailwind types */}
             <Typography
               as="a"
               variant="h4"
-              className="mr-4 cursor-pointer py-1.5 "
+              className="mr-4 cursor-pointer py-1.5"
             >
               Portfolio
             </Typography>
@@ -109,6 +117,7 @@ const NavbarDesktop = () => {
           <div className="hidden lg:block">
             <NavList />
           </div>
+          {/* @ts-ignore - material-tailwind types */}
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"

@@ -5,10 +5,11 @@ const API_URL = import.meta.env.VITE_BACK_END_URL;
 // Types
 export interface Project {
   _id: string;
-  title: string;
+  name: string;
   description: string;
-  image: string;
-  link: string;
+  image?: string;
+  github?: string;
+  linkedIn?: string;
   technologies?: string[];
 }
 
@@ -16,16 +17,18 @@ export interface Blog {
   _id: string;
   title: string;
   content: string;
-  date: string;
+  date?: string;
   image?: string;
+  url?: string;
 }
 
 export interface Competition {
   _id: string;
-  name: string;
-  position: string;
-  date: string;
+  title: string;
   description?: string;
+  image?: string;
+  url?: string;
+  date?: string;
 }
 
 // API functions

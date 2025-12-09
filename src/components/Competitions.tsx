@@ -1,31 +1,14 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "../styles/Competitions.css";
+import { useCompetitions } from "@/hooks/useApi";
 
 const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
 
-const Competitions = () => {
-  const [competitions, setCompetitions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const competitionRefs = useRef([]);
-  const headingRef = useRef(null); // Create a ref for the heading
+const Competitions: React.FC = () => {
+  const { data: competitions = [], isLoading, error } = useCompetitions();
+  const competitionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const headingRef = useRef<HTMLHeadingElement>(null);
 
-  // Fetch competitions from API
-  useEffect(() => {
-    const fetchCompetitions = async () => {
-      try {
-        const response = await fetch(`${BackEnd_URL}/competitions`);
-        const data = await response.json();
-        setCompetitions(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching competitions:", error);
-      }
-    };
-
-    fetchCompetitions();
-  }, []);
-
-  // Use IntersectionObserver to trigger animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -55,7 +38,6 @@ const Competitions = () => {
     };
   }, [competitions]);
 
-  // Use IntersectionObserver to animate heading
   useEffect(() => {
     const headingObserver = new IntersectionObserver(
       (entries) => {
@@ -81,6 +63,14 @@ const Competitions = () => {
     };
   }, []);
 
+  if (error) {
+    return (
+      <section className="py-12 text-white text-center">
+        <p>Error loading competitions. Please try again later.</p>
+      </section>
+    );
+  }
+
   return (
     <section id="competitions" className="relative gradient-bg py-10">
       <h1
@@ -90,14 +80,16 @@ const Competitions = () => {
         Competitions
       </h1>
       <div className="flex flex-col gap-6 flex-wrap justify-center items-center px-5 sm:px-8">
-        {loading ? (
+        {isLoading ? (
           <p>Loading competitions...</p>
         ) : (
           competitions.map((competition, index) => (
             <div
-              ref={(el) => (competitionRefs.current[index] = el)} // Store reference to each competition div
-              key={competition.id}
-              className={`card flex flex-col sm:flex-row gap-4 sm:gap-8 transform duration-1000 mb-8 w-full max-w-3xl p-4 bg-transparent shadow-[0_0_14px_1px] shadow-yellow-500 rounded-lg hover:bg-gray-700 opacity-0 translate-y-10`} // Default state: hidden and slightly shifted down
+              ref={(el) => {
+                competitionRefs.current[index] = el;
+              }}
+              key={competition._id}
+              className="card flex flex-col sm:flex-row gap-4 sm:gap-8 transform duration-1000 mb-8 w-full max-w-3xl p-4 bg-transparent shadow-[0_0_14px_1px] shadow-yellow-500 rounded-lg hover:bg-gray-700 opacity-0 translate-y-10"
             >
               <div className="w-full sm:w-2/5 flex justify-center items-center object-cover overflow-hidden rounded-lg shadow-[0_0_8px_1px] shadow-white">
                 {competition.image && (

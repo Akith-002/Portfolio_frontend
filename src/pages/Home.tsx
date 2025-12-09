@@ -5,8 +5,8 @@ const NavbarDesktop = React.lazy(() => import("../components/NavbarDesktop"));
 const HeroSection = React.lazy(() => import("../components/HeroSection"));
 const TechSection = React.lazy(() => import("../components/TechSection"));
 const Footer = React.lazy(() => import("../components/Footer"));
-const SpeedDialButton = React.lazy(() =>
-  import("../components/SpeedDialButton")
+const SpeedDialButton = React.lazy(
+  () => import("../components/SpeedDialButton")
 );
 const Competitions = React.lazy(() => import("../components/Competitions"));
 import "../styles/Loading.css";
@@ -17,7 +17,7 @@ const Loader = () => (
   </div>
 );
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <main
       className="w-full min-h-screen overflow-x-hidden"

@@ -8,7 +8,7 @@ import config from "../utils/Config.jsx";
 import actionProvider from "../utils/ActionProvider.jsx";
 import messageParser from "../utils/MessageParser.js";
 
-const SpeedDialButton = () => {
+const SpeedDialButton: React.FC = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const toggleChat = () => {
@@ -17,7 +17,6 @@ const SpeedDialButton = () => {
 
   return (
     <div className="fixed bottom-6 right-6 flex flex-col items-end z-20">
-      {/* Chat Window */}
       {isChatOpen && (
         <Chatbot
           config={config}
@@ -27,7 +26,6 @@ const SpeedDialButton = () => {
         />
       )}
 
-      {/* Speed Dial Button */}
       <button
         onClick={toggleChat}
         className="bg-black text-yellow-500 border-2 border-yellow-300 p-4 rounded-full shadow-lg hover:bg-yellow-400 hover:text-black transition-all"

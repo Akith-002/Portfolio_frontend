@@ -1,33 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/Blogs.css";
+import { useBlogs, Blog } from "@/hooks/useApi";
 
 const BackEnd_URL = import.meta.env.VITE_BACK_END_URL;
 
-// Fetching Blogs
-const Blogs = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedBlog, setSelectedBlog] = useState(null); // To manage modal content
-  const blogRefs = useRef([]); // To store refs of each blog card
-  const blogHeadingRef = useRef(null); // Ref for the "Blogs" heading
+const Blogs: React.FC = () => {
+  const { data: blogs = [], isLoading, error } = useBlogs();
+  const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
+  const blogRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const blogHeadingRef = useRef<HTMLHeadingElement>(null);
 
-  // Fetch blogs from API
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const response = await fetch(`${BackEnd_URL}/blogs`);
-        const data = await response.json();
-        setBlogs(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-      }
-    };
-
-    fetchBlogs();
-  }, []);
-
-  // Intersection Observer for appearing animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -39,7 +21,7 @@ const Blogs = () => {
           }
         });
       },
-      { threshold: 0.1 } // Trigger when 10% of the element is visible
+      { threshold: 0.1 }
     );
 
     blogRefs.current.forEach((ref) => {
@@ -47,15 +29,12 @@ const Blogs = () => {
     });
 
     return () => {
-      if (blogRefs.current) {
-        blogRefs.current.forEach((ref) => {
-          if (ref) observer.unobserve(ref);
-        });
-      }
+      blogRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
     };
   }, [blogs]);
 
-  // Intersection Observer for heading animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -81,34 +60,37 @@ const Blogs = () => {
     };
   }, []);
 
-  // Listen for 'Escape' key to close modal
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         closeModal();
       }
     };
 
     if (selectedBlog) {
-      // Add event listener when modal is open
       window.addEventListener("keydown", handleKeyDown);
     }
 
     return () => {
-      // Remove event listener when modal is closed or component is unmounted
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedBlog]);
 
-  // Function to open modal
-  const openModal = (blog) => {
+  const openModal = (blog: Blog) => {
     setSelectedBlog(blog);
   };
 
-  // Function to close modal
   const closeModal = () => {
     setSelectedBlog(null);
   };
+
+  if (error) {
+    return (
+      <section className="py-12 text-white text-center">
+        <p>Error loading blogs. Please try again later.</p>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -121,16 +103,17 @@ const Blogs = () => {
       >
         Blogs
       </h2>
-      {loading ? <div>Loading Blogs...</div> : null}
+      {isLoading && <div>Loading Blogs...</div>}
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-6 px-4">
         {blogs.map((blog, index) => (
           <div
-            ref={(el) => (blogRefs.current[index] = el)}
+            ref={(el) => {
+              blogRefs.current[index] = el;
+            }}
             key={blog._id}
-            className="flex flex-col justify-between bg-white h-[400px] md:h-[435px] rounded-lg shadow-lg p-4 sm:p-6 opacity-0 transform translate-y-10 transition-opacity transition-transform duration-500 ease-in-out hover:scale-105 "
+            className="flex flex-col justify-between bg-white h-[400px] md:h-[435px] rounded-lg shadow-lg p-4 sm:p-6 opacity-0 transform translate-y-10 transition-opacity transition-transform duration-500 ease-in-out hover:scale-105"
           >
             <div className="mb-4 overflow-hidden rounded-md">
-              {/* Display the uploaded image */}
               {blog.image ? (
                 <img
                   src={`${BackEnd_URL}${blog.image}`}
@@ -139,7 +122,7 @@ const Blogs = () => {
                   className="w-full h-40 object-cover rounded-md transition-transform duration-300 transform hover:scale-110"
                 />
               ) : (
-                <div className="w-full h-40 bg-gray-200 rounded-md"></div> // Placeholder
+                <div className="w-full h-40 bg-gray-200 rounded-md"></div>
               )}
             </div>
 
@@ -147,7 +130,6 @@ const Blogs = () => {
               <h3 className="text-lg font-semibold leading-6 mb-2">
                 {blog.title}
               </h3>
-              {/* Limit the text length to 3 lines */}
               <p className="text-sm text-gray-700 line-clamp-3">
                 {blog.content}
               </p>
@@ -165,7 +147,6 @@ const Blogs = () => {
         ))}
       </div>
 
-      {/* Modal */}
       {selectedBlog && (
         <div className="fixed inset-0 flex items-center justify-center mx-2 bg-gray-900 bg-opacity-50 z-50">
           <div className="bg-gray-200 p-6 sm:p-8 rounded-lg shadow-lg max-w-lg w-full relative">
@@ -188,7 +169,6 @@ const Blogs = () => {
             )}
             <p className="text-gray-700 mb-4">{selectedBlog.content}</p>
 
-            {/* Add a link to the blog */}
             {selectedBlog.url && (
               <a
                 href={selectedBlog.url}

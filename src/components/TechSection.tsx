@@ -18,7 +18,18 @@ import vscode from "/assets/icons/vscode-original.svg";
 
 import "../styles/Tech.css";
 
-const categories = [
+interface IconData {
+  src: string;
+  alt: string;
+  link: string;
+}
+
+interface Category {
+  title: string;
+  icons: IconData[];
+}
+
+const categories: Category[] = [
   {
     title: "Programming Languages",
     icons: [
@@ -73,8 +84,8 @@ const categories = [
   },
 ];
 
-const TechSection = () => {
-  const iconRefs = useRef([]);
+const TechSection: React.FC = () => {
+  const iconRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -87,7 +98,7 @@ const TechSection = () => {
           }
         });
       },
-      { threshold: 0.2 } // Trigger animation when 20% of the element is visible
+      { threshold: 0.2 }
     );
 
     iconRefs.current.forEach((ref) => {
@@ -125,7 +136,9 @@ const TechSection = () => {
                 target="_blank"
                 rel="noreferrer"
                 className="flex justify-center items-center opacity-0 transition-opacity duration-500 hover:scale-105"
-                ref={(el) => (iconRefs.current[i + index * 10] = el)} // Combine index and i for unique keys
+                ref={(el) => {
+                  iconRefs.current[i + index * 10] = el;
+                }}
               >
                 <img
                   src={icon.src}

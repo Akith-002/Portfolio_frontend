@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
 import bg from "/assets/images/footerBg.png";
-import { motion } from "framer-motion"; // Import Framer Motion for animation
+import { motion } from "framer-motion";
 
 const userId = "1dFkHeLKPgKY5pDXj";
 
-const Footer = () => {
-  const [formData, setFormData] = useState({
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+const Footer: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     message: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -20,16 +28,15 @@ const Footer = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // EmailJS send function
     emailjs
       .send(
-        "service_sik26p6", // replace with your EmailJS Service ID
-        "template_q1ibitu", // replace with your EmailJS Template ID
-        formData, // form data being sent
-        userId // replace with your EmailJS User ID
+        "service_sik26p6",
+        "template_q1ibitu",
+        formData as unknown as Record<string, unknown>,
+        userId
       )
       .then(
         (response) => {
@@ -42,7 +49,6 @@ const Footer = () => {
         }
       );
 
-    // Reset form after submission
     setFormData({
       name: "",
       email: "",
@@ -60,9 +66,7 @@ const Footer = () => {
       }}
     >
       <div className="container mx-auto px-4">
-        {/* Footer Links */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 px-4 md:px-8">
-          {/*Quick links*/}
           <motion.div
             className="flex flex-col space-y-4 font-semibold"
             initial={{ opacity: 0, y: 50 }}
@@ -87,7 +91,6 @@ const Footer = () => {
             </a>
           </motion.div>
 
-          {/* Social Media Links */}
           <motion.div
             className="flex flex-col space-y-4"
             initial={{ opacity: 0, y: 50 }}
@@ -129,7 +132,6 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Contact Me Section */}
           <motion.div
             className="flex flex-col space-y-4"
             initial={{ opacity: 0, y: 50 }}
@@ -177,7 +179,6 @@ const Footer = () => {
           </motion.div>
         </div>
 
-        {/* Footer Bottom */}
         <div className="flex justify-center items-center h-16 text-center mt-8 text-white border-t border-gray-800">
           <p>&copy; {new Date().getFullYear()} AKiNZ. All rights reserved.</p>
         </div>
